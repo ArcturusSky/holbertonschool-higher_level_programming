@@ -1,6 +1,6 @@
 # Python - Programming for Begginers (Refreshing memories)
 
-This repository will hold all the directories, projects and task about **Python**. In this README.md you will find some reminders like "what is a variable" "how to assign values" etc, to get back memmories from the "C" learnt previously. However its quality of reminder, it also add some concepts and syntax unique to Python.
+This repository will hold all the directories, projects and task about **Python**. In this README.md you will find some reminders like "what is a variable" "how to assign values" etc, to get back memories from the "C" learnt previously. However its quality of reminder, it also add some concepts and syntax unique to Python.
 
 ## Summary
 
