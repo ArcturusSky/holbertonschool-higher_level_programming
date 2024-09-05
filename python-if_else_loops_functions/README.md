@@ -1,0 +1,1 @@
+Everything in this directory can be find in the [parent repository's README.md](https://github.com/ArcturusSky/holbertonschool-higher_level_programming/blob/main/README.md)
