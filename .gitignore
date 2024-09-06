@@ -154,8 +154,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# ignored test
+# ignored test or main
 *-test.py
+*-main.py
 
 # my version
 *-myOwn.py
