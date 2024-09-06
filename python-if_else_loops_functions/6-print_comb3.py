@@ -5,4 +5,3 @@ for first_digit in range(0, 9):
             print("{:d}{:d}".format(first_digit, second_digit))
         else:
             print("{:d}{:d}, ".format(first_digit, second_digit), end="")
-        
