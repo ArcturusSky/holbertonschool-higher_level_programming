@@ -1,10 +1,10 @@
-# Python - 
+# Python - Modules
 
 This directory hold all the task to get introduce to the concept of **import** and **modules** in Python. This README.md will contain a small course about them.
 
 ## Summary
 
-- [Python -](#python--)
+- [Python - Modules](#python---modules)
   - [Summary](#summary)
   - [Glossary](#glossary)
   - [Introduction to modules](#introduction-to-modules)
@@ -29,36 +29,32 @@ This directory hold all the task to get introduce to the concept of **import** a
 ## Glossary
 
 **A**
-- **Arithmetic Operators:** Symbols that represent basic mathematical operations like addition and multiplication.
-
-**B**
-- **`break`:** A statement used to exit a loop prematurely.
-
-**C**
-- **Comments:** Lines in the code that are ignored by Python, used for documentation.
-- **`continue`:** A statement used to skip the rest of a loop iteration and proceed to the next one.
-
-**F**
-- **Function:** A block of reusable code that performs a specific task.
+- **Alias:** A different name given to a module or its attributes using the `as` keyword.
 
 **I**
-- **`if` Statement:** A conditional statement that runs a block of code only if the condition is true.
-- **Indentation:** The use of spaces or tabs to define code blocks in Python.
+- **Import:** A statement used to include a module or its attributes into another script.
+- **Intra-package reference:** A way to refer to submodules or sibling modules within the same package.
 
-**L**
-- **Loops:** Constructs that repeat a block of code until a condition is met (`while`, `for`).
+**M**
+- **Module:** A Python file containing definitions and statements that can be reused in other programs.
 
 **P**
-- **`pass`:** A statement used as a placeholder when no code is needed.
+- **Package:** A collection of modules organized into a directory hierarchy, with an `__init__.py` file indicating that the directory is a Python package.
+- **Path (sys.path):** A list of directories Python searches when importing modules.
 
 **R**
-- **`range()`:** A function that generates a sequence of numbers.
+- **Relative Import:** A method of importing modules within the same package using a relative path (`.` for the current package or `..` for the parent package).
 
 **S**
-- **Scope:** The region of the program where a variable is accessible.
+- **Shebang:** A special line in Unix-like systems that indicates the interpreter path used to run the script.
+- **Standalone Script:** A script that can be executed directly from the command line, often identified using `if __name__ == "__main__":`.
 
 **T**
-- **Traceback:** An error message showing where and why a program crashed.
+- **Top-level module:** A module that is not part of a package and can be imported directly.
+
+**U**
+- **__path__ attribute:** A list that can be modified to specify additional directories where Python will search for submodules.
+
  
 
 ## Introduction to modules
