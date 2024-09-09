@@ -1,10 +1,10 @@
-# Python Data Structures: Lists and Advanced Operations
+# Python Data Structures: Lists, Tuples, Sets and Dictionaries
 
 This repository will hold all the projects and tasks in Python about **Lists** and **Data Structure**.
 
 ## Summary
 
-- [Python Data Structures: Lists and Advanced Operations](#python-data-structures-lists-and-advanced-operations)
+- [Python Data Structures: Lists, Tuples, Sets and Dictionaries](#python-data-structures-lists-tuples-sets-and-dictionaries)
   - [Summary](#summary)
   - [Glossary](#glossary)
   - [Lists](#lists)
@@ -800,7 +800,7 @@ print(my_set) # Output: set()
 
 ### Set comprehension
 
-Similar to (#list-comprehensions), set comprehensions allow for concise set creations.
+Similar to [list comprehension](https://github.com/ArcturusSky/holbertonschool-higher_level_programming/blob/main/python-data-structures/README_list.md#list-comprehensions), set comprehensions allow for concise set creations.
 
 
 
