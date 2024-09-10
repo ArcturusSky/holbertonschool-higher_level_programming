@@ -1,6 +1,6 @@
 # Python - Data Structures: Lists and Tuples
 
-This repository will hold all the projects and tasks in Python about **Lists** and **Tuples** in **Data Structure**. For easier reading, this Readme.md has been cut in two parts "Data Structures: Lists and Tuples" and a second part directly following : ["Data Structures: Sets and Dictionnaries"](https://github.com/ArcturusSky/holbertonschool-higher_level_programming/blob/main/python-more-data-structures/README_list.md##python---data-structures-sets-and-dictionaries)
+This repository will hold all the projects and tasks in Python about **Lists** and **Tuples** in **Data Structure**. For easier reading, this Readme.md has been cut in two parts "Data Structures: Lists and Tuples" and a second part directly following : ["Data Structures: Sets and Dictionnaries"](https://github.com/ArcturusSky/holbertonschool-higher_level_programming/blob/main/python-more_data_structures/README.md)
 
 ## Summary
 #python---data-structures-sets-and-dictio
