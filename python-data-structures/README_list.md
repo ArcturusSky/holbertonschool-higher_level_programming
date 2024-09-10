@@ -311,14 +311,14 @@ Pythons lists have several useful methods:
   - `append(x)` – Add `x` to the end.
   - `extend(iterable)` – Extend the list by appending items from another iterable.
   - `insert(i, x)` – Insert `x` at index `i`.
-  - `remove(x)` – Remove the first item whose vamue is `x`.
+  - `remove(x)` – Remove the first item whose value is `x`.
   - `pop([i])` – Remove the item at index `i`(or the last item if `i` is not provided) and return it.
   - `clear()` – Remove all items from the list.
   - `index(x[, start[, end]])` – Return the index of the first occurence of `x`
   - `count(x)` – Return the number of times `x` appears.
   - `sort()` – Sort the list in place.
   - `reverse()` – Reverse the list in place.
-  - `copy()` – Return a shallox copy of the list.
+  - `copy()` – Return a shallow copy of the list.
 
 #### Examples using list methods
 
