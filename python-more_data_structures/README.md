@@ -391,6 +391,15 @@ print(my_dict.get("city", "Not found")) # Output: Not found
 
 ```
 
+- **`len(my_dict)`:** Return the number of keys in a dictionnary
+
+```python
+
+print(len(my_dict)) # Output: 3
+
+
+```
+
 - **`setdefault()`:** Similar to `get()` but also inserts a default value for the key if it doesn't exist.
 
 ```python
