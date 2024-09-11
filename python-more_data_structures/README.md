@@ -15,6 +15,7 @@ This repository will hold all the projects and tasks in Python about **Sets** an
     - [Key features of Sets](#key-features-of-sets)
     - [Set Operations](#set-operations)
     - [Common Set Methods](#common-set-methods)
+    - [Frozen set](#frozen-set)
     - [Set comprehension](#set-comprehension)
     - [Use cases of Sets](#use-cases-of-sets)
   - [Dictionaries](#dictionaries)
@@ -24,7 +25,27 @@ This repository will hold all the projects and tasks in Python about **Sets** an
     - [Accessing and Modifying values in a dictionary](#accessing-and-modifying-values-in-a-dictionary)
     - [Common Dictionnary Methods](#common-dictionnary-methods)
     - [Dictionary Operations](#dictionary-operations)
+    - [Dictionary comprehension](#dictionary-comprehension)
+    - [Nested Dictionaries:](#nested-dictionaries)
     - [Use cases of dictionaries](#use-cases-of-dictionaries)
+  - [Lambda Functions, Filter, Reduce and Map](#lambda-functions-filter-reduce-and-map)
+    - [Lambda Functions](#lambda-functions)
+      - [Definition](#definition-2)
+    - [Map Function](#map-function)
+      - [Definition](#definition-3)
+    - [Filter Function](#filter-function)
+      - [Definition](#definition-4)
+    - [Reduce Function](#reduce-function)
+      - [Definition](#definition-5)
+    - [Comparing Map, Filter, and Reduce](#comparing-map-filter-and-reduce)
+    - [Practical Examples](#practical-examples)
+      - [Using `map()` for transforming data](#using-map-for-transforming-data)
+      - [Using `filter()` for data selection](#using-filter-for-data-selection)
+    - [Using `reduce()` for aggregations](#using-reduce-for-aggregations)
+    - [Lambda, Map, Filter and Reduce together](#lambda-map-filter-and-reduce-together)
+  - [When to use each](#when-to-use-each)
+  - [Conclusion](#conclusion)
+  - [Author](#author)
 
 ## Glossary
 
@@ -109,7 +130,7 @@ This repository will hold all the projects and tasks in Python about **Sets** an
 
 ### Definition:
 
-Sets are another built-in data type in Python. A **set** is an **unordered collection** of unique elements. Sets are used to store multiple items, but unlike lists or tuples, they do not allow **duplicate** values, and theur elements are not ordered, meaning they don't have a specific positions or index.
+Sets are another built-in data type in Python. A **set** is an **unordered collection** of unique elements. Sets are used to store multiple items, but unlike lists or tuples, they do not allow **duplicate** values, and their elements are not ordered, meaning they don't have a specific positions or index.
 
 ### Key characteristics of sets
 
@@ -136,7 +157,7 @@ print(empty_set) # Output: set()
 
 ### Key features of Sets
 
-- **<span style="color:red">No</span> duplicate:** If you add the same element more than once, the set will only store it once.
+- **No duplicate:** If you add the same element more than once, the set will only store it once.
 
 ```python
 
@@ -166,12 +187,20 @@ set1 = {1, 2, 3}
 set2 = {3, 4, 5}
 print(set1 | set2) # Output: {1, 2, 3, 4, 5}
 
+# Or without operator:
+
+union_result = set1.union(set2)
+
 ```
 - **Intersection:** Returns only the elements that are present in both sets. 
 
 ```python
 
 print(set1 & set2) # Output {3}
+
+# Or without operator:
+
+intersection_result = set1.intersection(set2)
 
 ```
 
@@ -237,10 +266,42 @@ print(my_set) # Output: set()
 
 ```
 
+- **copy():** Copy a set to avoid unintentional changes to the original set when modifications are requiered.
+
+```python
+
+# Copying a set
+my_set = {1, 2, 3}
+new_set = my_set.copy()
+
+```
+
+### Frozen set
+
+A **frozen set** is a immutable version of set. This can be useful for cases where you need a set but don't want it to be changed (example: using a set a a dictionary key)
+
+```python
+
+# Creating a frozen set
+
+frozen = frozenset([1, 2, 3, "apple"])
+print(frozen) # Output: frozenset({1, 2, 3, 'apple'})
+
+```
+
+Frozen sets have similar methods to **sets**, except they cannot be modifiel after creation (so, no `add` or `remove`, etc)
+
+
 ### Set comprehension
 
 Similar to [list comprehension](https://github.com/ArcturusSky/holbertonschool-higher_level_programming/blob/main/python-data-structures/README_list.md#list-comprehensions), set comprehensions allow for concise set creations.
 
+```python
+
+squared_set = {x**2 for x in range(5)}
+print(squared_set)  # Output: {0, 1, 4, 9, 16}
+
+```
 
 
 ### Use cases of Sets
@@ -330,6 +391,27 @@ print(my_dict.get("city", "Not found")) # Output: Not found
 
 ```
 
+- **`setdefault()`:** Similar to `get()` but also inserts a default value for the key if it doesn't exist.
+
+```python
+
+my_dict = {"name": "Alice", "age": 25}
+age = my_dict.setdefault("age", 30) # Output: 25
+city = my_dict.setdefault("city", "New York") # Output: 'New York'
+print(my_dict) # Output: {'name': 'Alice', 'age': 25, 'city': 'New York'}
+
+```
+
+- **`fromkeys()`:** Create a dictionary with specified keys and a default value for all keys.
+
+```python
+
+keys = ["name", "age", "city"]
+default_dict = dic.fromkeys(keys, "Unknown")
+print(dafault_dict) # Output: {'name': 'Unknown', 'age': 'Unknown', 'city': 'Unknown'}
+
+```
+
 - **`keys()`:** Returns a view object of all the keys in the dictionary.
 
 ```python
@@ -402,6 +484,33 @@ for key, value in my_dict.items():
 
 ```
 
+### Dictionary comprehension
+
+Dictionary comprehension is a concise and efficient way to create dictionnaries, similar to list comprehensions.
+
+```python
+
+squares = {x: x*x for x in range(1, 6)}
+print(squares)  # Output: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+
+
+```
+
+### Nested Dictionaries:
+
+Nested dictionaries are commonly used to store more complexe data structures.
+
+```python
+
+nested_dict = {
+    "Alice": {"age": 25, "city": "New York"},
+    "Bob": {"age": 30, "city": "Chicago"}
+}
+
+print(nested_dict["Alice"]["age"]) # Output: 25
+
+```
+
 ### Use cases of dictionaries
 
 - **Storing key-value data:** Dictionaries are ideal for scenarios where you need to associate data with unique keys, such as a database of users and their information.
@@ -425,3 +534,245 @@ for fruit in fruits:
         fruit_count[fruit] = 1
 print(fruit_count) # Output: {'apple': 3, 'banana': 2, 'orange': 1}
 ```
+
+## Lambda Functions, Filter, Reduce and Map
+
+### Lambda Functions
+
+#### Definition
+
+A **lambda function** in Pythin is a small anonymous function efined with the keyword `lambda`. Lambda functions can have any number of arguments but only one expression. They are iften used when a simple function is required for a short period of time, typically in functions lik `map()`, `filter()`, and `reduce()`.
+
+**Syntax:**
+
+```python
+
+lambda arguments: expression
+
+```
+
+The lambda function evaluates the expression and returns the result.
+
+- *Example:*
+
+```python
+
+# Regular function
+def add_numbers(number1, number2):
+    return number1 + number2
+
+# Equivalent lambda function
+add_lambda = lambda number1, number2: number1 + number2
+
+print(add_lambda(2, 3))  # Output: 5
+
+
+```
+
+**Why Use `lambda` functions?**
+
+- They allow for **concise code.**
+- Useful when you need a small function for **one-time use.**
+- Can be passed as arguments to higher-order functions like `map()`, `filter()` and `reduce()`.
+
+### Map Function
+
+#### Definition
+
+`map()` applies a function to **each item** of an iterable (like a list) and returns a **map object** (an iterator) with the results. You can convert it back to a list if necessary.
+
+**Syntax:**
+
+```python
+
+map(function, iterable)
+
+```
+
+- `function`: a function to apply to each element of the iterable.
+- `iterable`: The iterable (example: list, tuple) to be processed.
+
+- *Example:*
+
+```python
+
+number_list = [1, 2, 3, 4]
+
+# Applying lambda to square each number
+squared_numbers = list(map(lambda number: number**2, number_list))
+
+print(squared_numbers)  # Output: [1, 4, 9, 16]
+
+
+```
+
+### Filter Function
+
+#### Definition
+
+`filter()` applies a function to each item of an iterable and **filters out** the items that don't satisfy a given condition (example: when the function returns `False`)
+
+**Syntax:**
+
+```python
+
+filter(function, iterable)
+
+```
+
+- `function`: A function that returns `True` or `False`
+- `iterable`: The iterable to be filtered
+
+- *Example:*
+
+```python
+
+number_list = [1, 2, 3, 4, 5, 6]
+
+# Filtering even numbers
+even_numbers = list(filter(lambda number: number % 2 == 0, number_list))
+
+print(even_numbers)  # Output: [2, 4, 6]
+
+
+```
+
+### Reduce Function
+
+#### Definition
+
+`reduce()` from the `functools` module is used to **accumulate** the results of applying a function cumulatively to the items of an iterable. It reduces the iterable to a single value.
+
+**Syntax**
+
+```python
+
+from functools import reduce
+
+reduce(dunction, iterable)
+
+```
+
+- `function`: A function that takes two arguments an returns a single result
+- `iterable`: The iterable to be processed.
+
+- *Example:*
+
+```python
+from functools import reduce
+
+number_sequence = [1, 2, 3, 4]
+
+# Multiply all elements together
+total_product = reduce(lambda current_product, next_number: current_product * next_number, number_sequence)
+
+print(total_product)  # Output: 24
+
+
+
+```
+
+### Comparing Map, Filter, and Reduce
+
+1. `map()` applies a function to each elements of the iterable and returns a new iterable with the results.
+
+2. `filter()` applies a function to each element of the iterable and returns only the elements that satisfy the function's condition
+
+3. `reduce()` applies a function cumulatively to the elements and returns a single reduced result.
+
+### Practical Examples
+
+#### Using `map()` for transforming data
+
+You can use `map()` when you want to transform each element of a collection.
+
+```python
+
+temperatures_in_celsius = [0, 10, 20, 30]
+
+# Convert Celsius to Fahrenheit
+temperatures_in_fahrenheit = list(map(lambda celsius: (celsius * 9/5) + 32, temperatures_in_celsius))
+
+print(temperatures_in_fahrenheit)  # Output: [32.0, 50.0, 68.0, 86.0]
+
+
+```
+
+#### Using `filter()` for data selection
+
+You can use `filter()` to extract elements that meet specific criteria.
+
+```python
+
+# Filtering a list of people older than 18
+
+people_ages = [15, 22, 17, 35, 10]
+
+# Filter people who are 18 or older
+adults = list(filter(lambda age: age >= 18, people_ages))
+
+print(adults)  # Output: [22, 35]
+
+```
+
+### Using `reduce()` for aggregations
+
+You can use `reduce()` for summing, multiplying, or finding the maximum or minimum of a list.
+
+```python
+
+# Finding the maximum value in a list
+
+from functools import reduce
+
+number_list = [5, 1, 8, 2, 10]
+
+max_value = reduce(lambda current_max, next_number: current_max if current_max > next_number else next_number, number_list)
+
+```
+
+### Lambda, Map, Filter and Reduce together
+
+You can combien these functions to create concise, functional-style code.
+
+- *Example:*
+
+Let's say we have a list of numbers and want to:
+
+1. Square all even numbers using `filter()` and `map()`.
+2. Find the sum of the squared numbers using `reduce()`
+
+```python
+
+from functools import reduce
+
+numbers_list = [1, 2, 3, 4, 5, 6, 7, 8]
+
+# Step 1: Filter out even numbers
+even_numbers = list(filter(lambda number: number % 2 == 0, numbers_list))
+
+# Step 2: Square the even numbers
+squared_even_numbers = list(map(lambda number: number**2, even_numbers))
+
+# Step 3: Sum the squared numbers
+sum_of_squared_numbers = reduce(lambda accumulated_sum, current_number: accumulated_sum + current_number, squared_even_numbers)
+
+print(sum_of_squared_numbers)  # Output: 120
+
+
+```
+
+## When to use each
+
+- `lambda`: Use when you need a simple, one-off function.
+- `map()`: Ideal for applying a transformation to each item in an iterable.
+- `filter()`: Use when you want to filter items in an iterable based on a condition
+- `reduce()`: Use for aggregation tasks that combien all elements of an iterable into a single value.
+
+## Conclusion
+
+Choosing the right data structure is key to efficient programming. **Strings** are great for text manipulation, **lists** for dynamic collections, **tuples** for immutable groupings, **sets** for unique elements, and **dictionaries** for key-value mappings. Understanding their characteristics and appropriate use cases will enhance your ability to solve problems effectively and write clear maintainable code.
+
+## Author
+
+Anne-Cécile Besse (Arc)
