@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 def search_replace(my_list, search, replace):
-    for index in range(len(my_list)):
 
-        if my_list[index] == search:
-            my_list[index] = replace
+    new_list = my_list.copy()           # Create a coopy to avoid mod original
 
-    return my_list
+    for index in range(len(new_list)):  # Iteration
+
+        if new_list[index] == search:   # Search and replace
+            new_list[index] = replace
+
+    return new_list
