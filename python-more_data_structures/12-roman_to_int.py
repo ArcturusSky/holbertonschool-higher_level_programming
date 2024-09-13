@@ -3,8 +3,6 @@ def roman_to_int(roman_string):
 
     if not roman_string:            # Check if exist and/or empty
         return 0
-    elif roman_string is None:
-        return 0
 
     else:                           # Create a dic for roman values
         roman_dic = {
@@ -16,18 +14,17 @@ def roman_to_int(roman_string):
         number = 0
         prev_value = 0
 
-    # Reverse the Roman numeral string to simplify
-    # the logic for adding/subtracting values
-        reverse_string = reversed(roman_string)
+    # Reverse the Roman numeral string to process it from right to left
+    for char in reversed(roman_string):
+        value = roman_dic[char]  # Get the Roman value from the dictionary
 
-        for char in reverse_string:
-            value = roman_dic[char]     # Get the Roman value from dic
+        # Subtract value if it is smaller than the previous value
+        if value < prev_value:
+            number -= value
+        else:
+            number += value
 
-            if value < prev_value:      # Check if value less than previous
-                number = number - value     # if less then substract it.
-            else:
-                number = number + value
+        # Update prev_value to the current value
+        prev_value = value
 
-            prev_value = value
-
-        return number
+    return number
