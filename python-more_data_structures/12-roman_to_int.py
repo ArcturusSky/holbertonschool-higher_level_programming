@@ -3,7 +3,7 @@ def roman_to_int(roman_string):
 
     if not roman_string:            # Check if exist and/or empty
         return 0
-    if type(roman_string) != str:
+    if not isinstance(roman_string, str):
         return 0
 
     else:                           # Create a dic for roman values
