@@ -4,11 +4,11 @@ def safe_print_list(my_list=[], x=0):
     for index in range(0, x):
         try:
             element = (my_list[index])
+            print("{:d}".format(element), end="")
             
         except IndexError:
             break
-        
-        print("{:d}".format(element), end="")
+
         all_print = all_print + 1
     
     print()
