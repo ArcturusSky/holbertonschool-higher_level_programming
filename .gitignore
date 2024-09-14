@@ -156,7 +156,7 @@ cython_debug/
 
 # ignored test or main
 *test.py
-test*
+test.*
 *-main.py
 
 # my version
