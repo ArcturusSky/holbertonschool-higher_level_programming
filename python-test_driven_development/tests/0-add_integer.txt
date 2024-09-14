@@ -1,0 +1,154 @@
+"""
+Adds two numbers together.
+
+:param a: first number
+:param b: second number (default is 98)
+:return: sum of a and b
+"""
+
+>>> from 0-add_integer import add_integer
+Adds two numbers together (with "b" = 98 by default)
+
+# Correct situations
+
+>>> add_integer(2, 3)  # Normal case with integers
+5
+>>> add_integer(-1, 1)  # Case with negative integer
+0
+>>> add_integer(100.3, -2)  # Floats are cast to integers
+98
+>>> add_integer(1) # One integer given works here since by default b = 98
+99
+
+# Test if right amounts of arguments
+
+>>> add_integer(1, 1, 1)  # Should raise an error because too many arguments are given
+Traceback (most recent call last):
+    ...
+TypeError: add_integer() takes 2 positional arguments but 3 were given
+>>> add_integer()  # Should raise an error because no arguments are given
+Traceback (most recent call last):
+    ...
+TypeError: add_integer() takes 2 positional arguments but none was given
+
+# Test if None argument
+
+>>> add_integer(None, 1)  # Should raise an error because first argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer or a float
+>>> add_integer(1, None)  # Should raise an error because second argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: b must be an integer or a float
+>>> add_integer(None, None)  # Should raise an error because both arguments are not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a and b must be integers or a floats
+
+# Test if NaN argument
+
+>>> add_integer(float('nan'), 1)  # Should raise an error because first argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer or a float
+>>> add_integer(1, float('nan'))  # Should raise an error because second argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: b must be an integer or a float
+>>> add_integer(float('nan'), float('nan'))  # Should raise an error because both arguments are not integers
+Traceback (most recent call last):
+    ...
+TypeError: a and b must be integers or a floats
+
+# Test if Infinity argument
+
+>>> add_integer(float('inf'), 1)  # Should raise an error because first argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer or a float
+>>> add_integer(1, float('inf'))  # Should raise an error because second argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: b must be an integer or a float
+>>> add_integer(float('inf'), float('inf'))  # Should raise an error because both arguments are not integers
+Traceback (most recent call last):
+    ...
+TypeError: a and b must be integers or a floats
+
+# Test if string instead of integer
+
+>>> add_integer('a', 1)  # Should raise an error because first argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer or a float
+>>> add_integer(1, 'b')  # Should raise an error because second argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: b must be an integer or a float
+>>> add_integer('a', 'b')  # Should raise an error because both arguments are not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a and b must be integers or a floats
+
+# Test if list instead of integer
+
+>>> add_integer([1], 1)  # Should raise an error because first argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer or a float
+>>> add_integer(1, [1])  # Should raise an error because second argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: b must be an integer or a float
+>>> add_integer([1], [1])  # Should raise an error because both arguments are not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a and b must be integers or a floats
+
+# Test if tuple instead of integer
+
+>>> add_integer((1, 2), 1)  # Should raise an error because first argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer or a float
+>>> add_integer(1, (1, 2))  # Should raise an error because second argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: b must be an integer or a float
+>>> add_integer((1, 2), (1, 2))  # Should raise an error because both arguments are not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a and b must be integers or a floats
+
+# Test if set instead of integer
+
+>>> add_integer({1}, 1)  # Should raise an error because first argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer or a float
+>>> add_integer(1, {2})  # Should raise an error because second argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: b must be an integer or a float
+>>> add_integer({1}, {2})  # Should raise an error because both arguments are not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a and b must be integers or a floats
+
+# Test if dictionary instead of integer
+
+>>> add_integer({'a' : 1}, 1)  # Should raise an error because first argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer or a float
+>>> add_integer(1, {'b': 2 })  # Should raise an error because second argument is not an integer
+Traceback (most recent call last):
+    ...
+TypeError: b must be an integer or a float
+>>> add_integer({'a' : 1}, {'b' : 2})  # Should raise an error because both arguments are not an integer
+Traceback (most recent call last):
+    ...
+TypeError: a and b must be integers or a floats
+
+"""
