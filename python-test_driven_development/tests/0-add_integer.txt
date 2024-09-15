@@ -1,13 +1,6 @@
-"""
-Adds two numbers together.
+>>> add_integer = __import__('0-add_integer').add_integer
 
-:param a: first number
-:param b: second number (default is 98)
-:return: sum of a and b
-"""
-
->>> from 0-add_integer import add_integer
-Adds two numbers together (with "b" = 98 by default)
+# Adds two numbers together (with "b" = 98 by default)
 
 # Correct situations
 
@@ -25,130 +18,130 @@ Adds two numbers together (with "b" = 98 by default)
 >>> add_integer(1, 1, 1)  # Should raise an error because too many arguments are given
 Traceback (most recent call last):
     ...
-TypeError: add_integer() takes 2 positional arguments but 3 were given
+TypeError: add_integer() takes from 1 to 2 positional arguments but 3 were given
 >>> add_integer()  # Should raise an error because no arguments are given
 Traceback (most recent call last):
     ...
-TypeError: add_integer() takes 2 positional arguments but none was given
+TypeError: add_integer() missing 1 required positional argument: 'a'
 
 # Test if None argument
 
 >>> add_integer(None, 1)  # Should raise an error because first argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: a must be an integer or a float
+TypeError: a must be an integer
 >>> add_integer(1, None)  # Should raise an error because second argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: b must be an integer or a float
+TypeError: b must be an integer
 >>> add_integer(None, None)  # Should raise an error because both arguments are not an integer
 Traceback (most recent call last):
     ...
-TypeError: a and b must be integers or a floats
+TypeError: a must be an integer
 
 # Test if NaN argument
 
 >>> add_integer(float('nan'), 1)  # Should raise an error because first argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: a must be an integer or a float
+ValueError: cannot convert float NaN to integer
 >>> add_integer(1, float('nan'))  # Should raise an error because second argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: b must be an integer or a float
+ValueError: cannot convert float NaN to integer
 >>> add_integer(float('nan'), float('nan'))  # Should raise an error because both arguments are not integers
 Traceback (most recent call last):
     ...
-TypeError: a and b must be integers or a floats
+ValueError: cannot convert float NaN to integer
 
 # Test if Infinity argument
 
 >>> add_integer(float('inf'), 1)  # Should raise an error because first argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: a must be an integer or a float
+OverflowError: cannot convert float infinity to integer
 >>> add_integer(1, float('inf'))  # Should raise an error because second argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: b must be an integer or a float
+OverflowError: cannot convert float infinity to integer
 >>> add_integer(float('inf'), float('inf'))  # Should raise an error because both arguments are not integers
 Traceback (most recent call last):
     ...
-TypeError: a and b must be integers or a floats
+OverflowError: cannot convert float infinity to integer
 
 # Test if string instead of integer
 
 >>> add_integer('a', 1)  # Should raise an error because first argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: a must be an integer or a float
+TypeError: a must be an integer
 >>> add_integer(1, 'b')  # Should raise an error because second argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: b must be an integer or a float
+TypeError: b must be an integer
 >>> add_integer('a', 'b')  # Should raise an error because both arguments are not an integer
 Traceback (most recent call last):
     ...
-TypeError: a and b must be integers or a floats
+TypeError: a must be an integer
 
 # Test if list instead of integer
 
 >>> add_integer([1], 1)  # Should raise an error because first argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: a must be an integer or a float
+TypeError: a must be an integer
 >>> add_integer(1, [1])  # Should raise an error because second argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: b must be an integer or a float
+TypeError: b must be an integer
 >>> add_integer([1], [1])  # Should raise an error because both arguments are not an integer
 Traceback (most recent call last):
     ...
-TypeError: a and b must be integers or a floats
+TypeError: a must be an integer
 
 # Test if tuple instead of integer
 
 >>> add_integer((1, 2), 1)  # Should raise an error because first argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: a must be an integer or a float
+TypeError: a must be an integer
 >>> add_integer(1, (1, 2))  # Should raise an error because second argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: b must be an integer or a float
+TypeError: b must be an integer
 >>> add_integer((1, 2), (1, 2))  # Should raise an error because both arguments are not an integer
 Traceback (most recent call last):
     ...
-TypeError: a and b must be integers or a floats
+TypeError: a must be an integer
 
 # Test if set instead of integer
 
 >>> add_integer({1}, 1)  # Should raise an error because first argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: a must be an integer or a float
+TypeError: a must be an integer
 >>> add_integer(1, {2})  # Should raise an error because second argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: b must be an integer or a float
+TypeError: b must be an integer
 >>> add_integer({1}, {2})  # Should raise an error because both arguments are not an integer
 Traceback (most recent call last):
     ...
-TypeError: a and b must be integers or a floats
+TypeError: a must be an integer
 
 # Test if dictionary instead of integer
 
 >>> add_integer({'a' : 1}, 1)  # Should raise an error because first argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: a must be an integer or a float
+TypeError: a must be an integer
 >>> add_integer(1, {'b': 2 })  # Should raise an error because second argument is not an integer
 Traceback (most recent call last):
     ...
-TypeError: b must be an integer or a float
+TypeError: b must be an integer
 >>> add_integer({'a' : 1}, {'b' : 2})  # Should raise an error because both arguments are not an integer
 Traceback (most recent call last):
     ...
-TypeError: a and b must be integers or a floats
+TypeError: a must be an integer
 
 """
