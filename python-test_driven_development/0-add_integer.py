@@ -22,17 +22,17 @@ def add_integer(a, b=98):
 # Error if infinite or -infinite
 
     if a == float('inf') or a == float('-inf'):
-        raise OverflowError
+        raise OverflowError("cannot convert float infinity to integer")
     if b == float('inf') or b == float('-inf'):
-        raise OverflowError
+        raise OverflowError("cannot convert float infinity to integer")
 
 
 # Error if "NaN"
 
     if a != a:
-        raise ValueError
+        raise ValueError("cannot convert float NaN to integer")
     if b != b:
-        raise ValueError
+        raise ValueError("cannot convert float NaN to integer")
 
 # If everything correct, cast in int
 
