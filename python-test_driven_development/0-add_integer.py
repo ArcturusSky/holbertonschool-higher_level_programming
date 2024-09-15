@@ -2,22 +2,14 @@
 
 """
 This module provides a function for basic add operation.
+Adds two numbers together (with "b" = 98 by default)
+Return: sum
 """
 
 
 def add_integer(a, b=98):
     """
     This function adds two numbers together and return the result.
-
-    Args:
-        a: first number
-        b: second number (default is 98)
-
-    Return:
-        sum of a and b
-
-    Raises:
-        TypeError: If a or b is not an integer or float.
     """
 
 # Error if not int or float
