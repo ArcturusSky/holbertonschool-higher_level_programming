@@ -15,7 +15,7 @@ class Square:
         Initializes the square with a private size attribute
         """
 
-        self.__size = size      # Check for error moved to setter
+        self.size = size      # Check for error moved to setter
 
     def area(self):
         """
