@@ -19,6 +19,16 @@ This document will hold information I didn't know where to put in other files/re
       - [Defining a Simple class](#defining-a-simple-class)
       - [Adding Methods to a Class](#adding-methods-to-a-class)
       - [The `__init__` Method](#the-__init__-method)
+    - [Private and Protected Attributes in Python](#private-and-protected-attributes-in-python)
+      - [What Are Private and Protected Attributes?](#what-are-private-and-protected-attributes)
+      - [Using Getters and Setters with Private and Protected Attributes](#using-getters-and-setters-with-private-and-protected-attributes)
+  - [Example: Private and Protected Attributes with Getters and Setters](#example-private-and-protected-attributes-with-getters-and-setters)
+    - [Original Case: A Class with Public Attributes (Initial State)](#original-case-a-class-with-public-attributes-initial-state)
+    - [Step 1: Making an attribute protected (or private) without getter and setter](#step-1-making-an-attribute-protected-or-private-without-getter-and-setter)
+    - [Step 2.5: Making an Attribute Protected Using Getters and Setters](#step-25-making-an-attribute-protected-using-getters-and-setters)
+    - [Step 3: Making an Attribute Private with Getters and Setters](#step-3-making-an-attribute-private-with-getters-and-setters)
+  - [Key Points:](#key-points)
+  - [Recap:](#recap)
   
 ## Object-Oriented Programming (OOP)
 
@@ -253,4 +263,173 @@ $ python oop_init.py
 Hello, my name is Swaroop
 ```
 
+### Private and Protected Attributes in Python
 
+#### What Are Private and Protected Attributes?
+
+In Python, attributes aren't strictly private, but there are conventions to indicate whether an attribute is public, protected, or private.
+
+- **Public Attributes**: Can be accessed and modified freely from outside the class.
+  - Example: `self.name`
+- **Protected Attributes**: Indicated by a single underscore (`_attribute`). This signals that the attribute is intended for internal use, but it can still be accessed directly (though it's discouraged).
+  - Example: `self._age`
+- **Private Attributes**: Indicated by double underscores (`__attribute`). This is intended to make the attribute private, meaning it can't be accessed directly from outside the class. This triggers name mangling, which makes it harder (but not impossible) to access the attribute.
+  - Example: `self.__salary`
+
+#### Using Getters and Setters with Private and Protected Attributes
+
+You can use **getters** and **setters** to control access to private and protected attributes. This allows you to make an attribute effectively private by controlling how it's accessed and modified.
+
+---
+
+## Example: Private and Protected Attributes with Getters and Setters
+
+### Original Case: A Class with Public Attributes (Initial State)
+
+Here’s an example with public attributes:
+
+```python
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name  # Public attribute
+        self.salary = salary  # Public attribute
+
+employee = Employee("Alice", 50000)
+
+# Accessing and modifying public attributes directly
+print(employee.name)  # Output: Alice
+employee.salary = 60000
+print(employee.salary)  # Output: 60000
+```
+
+---
+
+### Step 1: Making an attribute protected (or private) without getter and setter
+
+Here’s an example how you can making an attribute privte or protected (it just change the number of `_` as we seen above).
+
+```python
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name  # Public attribute
+        self._salary = salary  #Protected attribute
+
+employee = Employee("Alice", 50000)
+```
+
+As it is now, the attribute is protected or private and so can't be changed. It can be useful for variables you won't change at all once they are created.
+
+
+But what if we want to modify it? We will use another technique to make the attribute private AND change it in a specific way!
+
+### Step 2.5: Making an Attribute Protected Using Getters and Setters
+
+To make `salary` protected, we won't name it `_salary` directly in the __init__ because if we do that then all the getter and setter will be skipped.
+
+So we introduce a getter and setter for controlled access.
+
+```python
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary  # Attribute we want to protect
+
+    @property
+    def salary(self):
+        return self._salary  # Getter for the protected attribute
+
+    @salary.setter
+    def salary(self, value):
+        if value >= 0:  # Ensure salary is a non-negative value
+            self._salary = value
+        else:
+            raise ValueError("Salary must be a positive number")
+
+employee = Employee("Alice", 50000)
+
+# Accessing salary using the getter
+print(employee.salary)  # Output: 50000
+
+# Modifying salary using the setter
+employee.salary = 60000
+print(employee.salary)  # Output: 60000
+
+# Trying to set an invalid salary
+try:
+    employee.salary = -100  # Raises ValueError: Salary must be a positive number
+except ValueError as e:
+    print(e)
+```
+
+**Explanation**:
+- Public attribute `salary` in the `__init__` received the characteristic protected" in the through the getter and setter (`_salary`), and can only be accessed through the `@property` getter and setter.
+- The setter ensures that the salary cannot be negative.
+
+---
+
+### Step 3: Making an Attribute Private with Getters and Setters
+
+To make `salary` private, change `_salary` to `__salary` and use getters and setters to manage access.
+
+```python
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary  # Private attribute
+
+    @property
+    def salary(self):
+        return self.__salary  # Getter for the private attribute
+
+    @salary.setter
+    def salary(self, value):
+        if value >= 0:
+            self.__salary = value
+        else:
+            raise ValueError("Salary must be a positive number")
+
+employee = Employee("Alice", 50000)
+
+# Accessing salary using the getter
+print(employee.salary)  # Output: 50000
+
+# Modifying salary using the setter
+employee.salary = 60000
+print(employee.salary)  # Output: 60000
+
+# Trying to set an invalid salary
+try:
+    employee.salary = -100  # Raises ValueError: Salary must be a positive number
+except ValueError as e:
+    print(e)
+
+# Trying to access the private attribute directly (not possible)
+try:
+    print(employee.__salary)  # Raises AttributeError
+except AttributeError:
+    print("Cannot access private attribute directly")
+```
+
+**Explanation**:
+- The attribute `__salary` is private and cannot be accessed directly outside of the class.
+- **Name mangling** internally changes `__salary` to `_Employee__salary`, making it difficult to modify the attribute from outside the class.
+
+---
+
+## Key Points:
+
+- **Public attributes** can be accessed and modified freely.
+- **Protected attributes** (e.g., `_attribute`) signal internal use, though they can still be accessed outside if needed.
+- **Private attributes** (e.g., `__attribute`) are intended to be fully private and should be accessed only through methods like getters and setters.
+- **Using `@property`** with getters and setters allows controlled access and modification while keeping the syntax clean and Pythonic (`object.attribute`).
+
+---
+
+## Recap:
+
+- **Protected Attributes**: Use a single underscore (`_attribute`) to indicate the attribute is for internal use.
+- **Private Attributes**: Use double underscores (`__attribute`) to prevent external access or modification.
+- **Getters and Setters**: Use `@property` and `@attribute.setter` to manage access to private or protected attributes.
+- **`@property` Decorator**: Provides a simple, readable way to use getters and setters while maintaining control over access.
+
+This lesson demonstrates how to manage attribute visibility and encapsulation using getters, setters, and Python’s private/protected naming conventions.
