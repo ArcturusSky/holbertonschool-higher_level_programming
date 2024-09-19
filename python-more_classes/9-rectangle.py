@@ -25,16 +25,6 @@ class Rectangle:
         Rectangle.number_of_instances += 1
         print_symbol = Rectangle.print_symbol
 
-# Class method to create a square rectangle
-
-    @classmethod
-    def square(cls, size=0):
-        """
-        Return a new Rectangle instance with square features
-        """
-
-        return cls(size, size)
-
 # Getting and setting width before anything to allow checks first
 
     @property
@@ -181,3 +171,13 @@ class Rectangle:
             return rect_1
         else:
             return rect_2
+
+# Class method to create a square rectangle
+
+    @classmethod
+    def square(cls, size=0):
+        """
+        Return a new Rectangle instance with square features
+        """
+
+        return cls(size, size)
