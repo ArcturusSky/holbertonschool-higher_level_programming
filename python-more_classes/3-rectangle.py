@@ -125,4 +125,3 @@ class Rectangle:
 
         # Join the rows with newline characters and return the resulting string
             return "\n".join(string_rec)
-
