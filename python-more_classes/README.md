@@ -1,0 +1,1 @@
+Every information needed are the in the [previous directory](https://github.com/ArcturusSky/holbertonschool-higher_level_programming/blob/main/python-classes/README.md) since it's on the same subject. 
