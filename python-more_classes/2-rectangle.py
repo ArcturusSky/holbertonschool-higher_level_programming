@@ -69,26 +69,28 @@ class Rectangle:
 
         self.__height = value     # Assign the validated value
 
-
-
 # Once all checks done in setters, pursuing with methods
 
     def area(self):
         """
+
         Calculate and return the area of the rectangle
+
         """
 
         return self.height * self.width
 
     def perimeter(self):
         """
+
         Calculate and return the perimeter of the rectangle
+
         """
         if self.height == 0 or self.width == 0:
             return 0
         else:
 
-            return (self.height *2) + (self.width * 2)
+            return (self.height * 2) + (self.width * 2)
 
 #
 #    def my_print(self):

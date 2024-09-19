@@ -69,8 +69,6 @@ class Rectangle:
 
         self.__height = value     # Assign the validated value
 
-
-
 # Once all checks done in setters, pursuing with methods
 
 #    def area(self):
