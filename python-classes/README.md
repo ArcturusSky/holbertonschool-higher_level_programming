@@ -34,6 +34,7 @@ This document will hold information I didn't know where to put in other files/re
     - [Data Abstraction, Data Encapsulation, and Information Hiding](#data-abstraction-data-encapsulation-and-information-hiding)
     - [`__str__` and `__repr__` Methods](#__str__-and-__repr__-methods)
     - [Destructor](#destructor)
+    - [Static Methods in Python](#static-methods-in-python)
   
 ## Object-Oriented Programming (OOP)
 
@@ -609,3 +610,81 @@ del handler
 
 **Explanation:**
 The `__del__` method is called when the `FileHandler` object is about to be destroyed. It ensures that the file is properly closed before the object is removed from memory. However, it's generally recommended to use context managers (`with` statement) for resource management instead of relying on destructors.
+
+### Static Methods in Python
+
+**Definition**: A static method is a method that belongs to a class rather than an instance of the class. It doesn't require access to instance-specific data and doesn't modify the class state.
+
+**Syntax:**
+
+```python
+class ClassName:
+    @staticmethod
+    def method_name(parameters):
+        # method body
+```
+
+**Example:**
+
+```python
+class MathOperations:
+    @staticmethod
+    def add(x, y):
+        return x + y
+    
+    @staticmethod
+    def multiply(x, y):
+        return x * y
+
+# Using static methods
+print("Sum: {}".format(MathOperations.add(5, 3)))
+print("Product: {}".format(MathOperations.multiply(4, 2)))
+
+# Expected output:
+# Sum: 8
+# Product: 8
+```
+
+**Explanation:**
+- Static methods are defined using the `@staticmethod` decorator.
+- They don't require the `self` parameter because they don't access instance-specific data.
+- Static methods can be called on the class itself, without creating an instance.
+- They are useful for utility functions that are related to the class but don't need to access instance or class data.
+
+**Use Cases:**
+1. Utility functions related to the class's purpose.
+2. Factory methods that create instances of the class.
+3. Methods that operate on class attributes rather than instance attributes.
+
+**Comparison with Instance Methods:**
+
+```python
+class Calculator:
+    def __init__(self, initial_value=0):
+        self.value = initial_value
+    
+    def add(self, x):
+        self.value += x
+        return self.value
+    
+    @staticmethod
+    def add_numbers(x, y):
+        return x + y
+
+# Using instance method
+calc = Calculator(5)
+print("Instance method result: {}".format(calc.add(3)))
+
+# Using static method
+print("Static method result: {}".format(Calculator.add_numbers(5, 3)))
+
+# Expected output:
+# Instance method result: 8
+# Static method result: 8
+```
+
+**Key Points:**
+- Static methods don't have access to `self` or `cls` parameters.
+- They can be called on the class without creating an instance.
+- Use static methods when you don't need to access or modify instance or class state.
+- Static methods improve code organization by grouping related functions within a class.
