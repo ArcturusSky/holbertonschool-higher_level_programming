@@ -33,7 +33,7 @@ class Rectangle:
         Return a new Rectangle instance with square features
         """
 
-        return Rectangle(width=size, height=size)
+        return cls(width=size, height=size)
 
 # Getting and setting width before anything to allow checks first
 
@@ -181,4 +181,3 @@ class Rectangle:
             return rect_1
         else:
             return rect_2
-
