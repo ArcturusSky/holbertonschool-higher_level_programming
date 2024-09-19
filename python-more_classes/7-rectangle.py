@@ -23,6 +23,7 @@ class Rectangle:
         self.height = height
         self.width = width
         Rectangle.number_of_instances += 1
+        print_symbol = Rectangle.print_symbol
 
 # Getting and setting width before anything to allow checks first
 
@@ -108,7 +109,7 @@ class Rectangle:
         else:
             for rowindex in range(0, self.height):
                 for columndindex in range(0, self.width):
-                    print("#", end="")
+                    print(self.print_symbol, end="")
                 print("")
 
     def __str__(self):
@@ -124,7 +125,7 @@ class Rectangle:
         string_rec = []
         for row in range(self.width):
             for columndindex in range(0, self.height):
-                string_rec.append(Rectangle.print_symbol * self.width)
+                string_rec.append(str(self.print_symbol) * self.width)
 
         # Join the rows with newline characters and return the resulting string
             return "\n".join(string_rec)
