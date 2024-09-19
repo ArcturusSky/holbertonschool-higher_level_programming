@@ -7,28 +7,33 @@ This document will hold information I didn't know where to put in other files/re
 - [Python - Classes](#python---classes)
   - [Summary](#summary)
   - [Object-Oriented Programming (OOP)](#object-oriented-programming-oop)
-    - [Classes and Subclasses](#classes-and-subclasses)
+    - [Classes and Subclasses hierarchy](#classes-and-subclasses-hierarchy)
       - [Class (or Superclass)](#class-or-superclass)
       - [Subclass (or Derived Class)](#subclass-or-derived-class)
       - [Instance](#instance)
       - [To sum up](#to-sum-up)
       - [Full hierarchy](#full-hierarchy)
+    - [First-class Everything](#first-class-everything)
+    - [A Minimal Class in Python](#a-minimal-class-in-python)
+    - [Attributes](#attributes)
+    - [Methods](#methods)
+    - [The `__init__` Method](#the-__init__-method)
     - [The `self` parameter in Python OOP](#the-self-parameter-in-python-oop)
       - [How to use the `self` parameter in Python](#how-to-use-the-self-parameter-in-python)
     - [Example Defining a Simple Class](#example-defining-a-simple-class)
       - [Defining a Simple class](#defining-a-simple-class)
       - [Adding Methods to a Class](#adding-methods-to-a-class)
-      - [The `__init__` Method](#the-__init__-method)
+      - [Adding the `__init__` Method](#adding-the-__init__-method)
     - [Private and Protected Attributes in Python](#private-and-protected-attributes-in-python)
       - [What Are Private and Protected Attributes?](#what-are-private-and-protected-attributes)
-      - [Using Getters and Setters with Private and Protected Attributes](#using-getters-and-setters-with-private-and-protected-attributes)
-  - [Example: Private and Protected Attributes with Getters and Setters](#example-private-and-protected-attributes-with-getters-and-setters)
-    - [Original Case: A Class with Public Attributes (Initial State)](#original-case-a-class-with-public-attributes-initial-state)
-    - [Step 1: Making an attribute protected (or private) without getter and setter](#step-1-making-an-attribute-protected-or-private-without-getter-and-setter)
-    - [Step 2.5: Making an Attribute Protected Using Getters and Setters](#step-25-making-an-attribute-protected-using-getters-and-setters)
-    - [Step 3: Making an Attribute Private with Getters and Setters](#step-3-making-an-attribute-private-with-getters-and-setters)
-  - [Key Points:](#key-points)
-  - [Recap:](#recap)
+    - [Private and Protected Attributes with Getters and Setters](#private-and-protected-attributes-with-getters-and-setters)
+      - [Original Case: A Class with Public Attributes (Initial State)](#original-case-a-class-with-public-attributes-initial-state)
+      - [Option 1: Making an attribute protected (or private) without getter and setter](#option-1-making-an-attribute-protected-or-private-without-getter-and-setter)
+      - [Option 2: Making an Attribute Protected Using Getters and Setters](#option-2-making-an-attribute-protected-using-getters-and-setters)
+    - [Key Points:](#key-points)
+    - [Data Abstraction, Data Encapsulation, and Information Hiding](#data-abstraction-data-encapsulation-and-information-hiding)
+    - [`__str__` and `__repr__` Methods](#__str__-and-__repr__-methods)
+    - [Destructor](#destructor)
   
 ## Object-Oriented Programming (OOP)
 
@@ -46,7 +51,7 @@ Object-Oriented Programming (OOP) is a way of structuring programs by combining 
 
 **OOP** is especially useful for larger or more complex programs that benefit from organizing code around objects rather than functions alone.
 
-### Classes and Subclasses
+### Classes and Subclasses hierarchy
 
 #### Class (or Superclass)
 
@@ -117,6 +122,135 @@ Class: Animal
         ├── fly()
         └── sing()
 ```
+
+### First-class Everything
+
+In Python, everything is treated as an object, including functions and classes. This concept is known as "**first-class everything**."
+
+**Example:**
+
+```python
+def greet(name):
+    return f"Hello, {name}!"
+
+# Assigning a function to a variable
+greeting = greet
+print(greeting("Alice"))
+
+# Expected output: Hello, Alice!
+```
+
+**Explanation:**
+
+In this example, we define a function `greet` and assign it to a variable `greeting`. We can then call the function using the variable name, demonstrating that functions are first-class objects in Python.
+
+### A Minimal Class in Python
+
+**Definition**: A class is a blueprint for creating objects that **encapsulate** data and behavior.
+
+**Syntax:**
+
+```python
+class ClassName:
+    pass
+```
+
+**Example:**
+
+```python
+class Dog:
+    pass
+
+my_dog = Dog()
+print(my_dog)
+
+# Expected output:
+# <__main__.Dog object at 0x...>
+```
+
+**Explanation:**
+
+We define a minimal class `Dog` using the `class` keyword. The `pass` statement is used as a placeholder. We create an instance of the `Dog` class and assign it to `my_dog`. When we print `my_dog`, Python displays the object's type and memory address.
+
+### Attributes
+
+**Definition**: Attributes are variables that store data within a class or instance.
+
+**Example:**
+
+```python
+class Dog:
+    species = "Canis familiaris"  # Class attribute
+
+    def __init__(self, name, age):
+        self.name = name  # Instance attribute
+        self.age = age    # Instance attribute
+
+my_dog = Dog("Buddy", 5)
+print("Name: {}, Age: {}, Species: {}".format(my_dog.name, my_dog.age, my_dog.species))
+
+# Expected output:
+# Name: Buddy, Age: 5, Species: Canis familiaris
+```
+
+**Explanation:**
+We define a `Dog` class with a class attribute `species` and two instance attributes `name` and `age`. The `__init__` method initializes the instance attributes. We create a `Dog` instance and access its attributes using dot notation.
+
+### Methods
+
+**Definition**: Methods are functions defined within a class that describe the behaviors of the class instances.
+
+**Example:**
+
+```python
+class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def bark(self):
+        return "Woof!"
+
+my_dog = Dog("Rex", 3)
+print("{} says: {}".format(my_dog.name, my_dog.bark()))
+
+# Expected output:
+# Rex says: Woof!
+```
+
+**Explanation:**
+We define a `Dog` class with an `__init__` method to initialize attributes and a `bark` method to define a behavior. We create a `Dog` instance and call its `bark` method.
+
+### The `__init__` Method
+
+**Definition**: The `__init__` method is a special method in Python classes used for initializing new objects.
+
+**Syntax:**
+
+```python
+class ClassName:
+    def __init__(self, param1, param2):
+        self.attribute1 = param1
+        self.attribute2 = param2
+```
+
+**Example:**
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+person = Person("Alice", 30)
+print("Name: {}, Age: {}".format(person.name, person.age))
+
+# Expected output:
+# Name: Alice, Age: 30
+```
+
+**Explanation:**
+The `__init__` method is called when creating a new instance of the class. It initializes the object's attributes (`name` and `age`) with the values passed as arguments.
 
 ### The `self` parameter in Python OOP
 
@@ -236,7 +370,7 @@ Hello, how are you?
   
   - **Method Call:** `p.say_hi()` calls the `say_hi` method on the instance `p`.
 
-#### The `__init__` Method
+#### Adding the `__init__` Method
 
 ```python
 
@@ -276,15 +410,9 @@ In Python, attributes aren't strictly private, but there are conventions to indi
 - **Private Attributes**: Indicated by double underscores (`__attribute`). This is intended to make the attribute private, meaning it can't be accessed directly from outside the class. This triggers name mangling, which makes it harder (but not impossible) to access the attribute.
   - Example: `self.__salary`
 
-#### Using Getters and Setters with Private and Protected Attributes
+### Private and Protected Attributes with Getters and Setters
 
-You can use **getters** and **setters** to control access to private and protected attributes. This allows you to make an attribute effectively private by controlling how it's accessed and modified.
-
----
-
-## Example: Private and Protected Attributes with Getters and Setters
-
-### Original Case: A Class with Public Attributes (Initial State)
+#### Original Case: A Class with Public Attributes (Initial State)
 
 Here’s an example with public attributes:
 
@@ -304,7 +432,7 @@ print(employee.salary)  # Output: 60000
 
 ---
 
-### Step 1: Making an attribute protected (or private) without getter and setter
+#### Option 1: Making an attribute protected (or private) without getter and setter
 
 Here’s an example how you can making an attribute privte or protected (it just change the number of `_` as we seen above).
 
@@ -322,11 +450,11 @@ As it is now, the attribute is protected or private and so can't be changed. It 
 
 But what if we want to modify it? We will use another technique to make the attribute private AND change it in a specific way!
 
-### Step 2.5: Making an Attribute Protected Using Getters and Setters
+#### Option 2: Making an Attribute Protected Using Getters and Setters
 
-To make `salary` protected, we won't name it `_salary` directly in the __init__ because if we do that then all the getter and setter will be skipped.
+To make `salary` protected, we won't name it `_salary` directly in the `__init__` because if we do that then all the getter and setter will be **skipped**.
 
-So we introduce a getter and setter for controlled access.
+So we introduce a **getter** and **setter** for controlled access.
 
 ```python
 class Employee:
@@ -365,71 +493,119 @@ except ValueError as e:
 - Public attribute `salary` in the `__init__` received the characteristic protected" in the through the getter and setter (`_salary`), and can only be accessed through the `@property` getter and setter.
 - The setter ensures that the salary cannot be negative.
 
----
-
-### Step 3: Making an Attribute Private with Getters and Setters
-
-To make `salary` private, change `_salary` to `__salary` and use getters and setters to manage access.
-
-```python
-class Employee:
-    def __init__(self, name, salary):
-        self.name = name
-        self.salary = salary  # Private attribute
-
-    @property
-    def salary(self):
-        return self.__salary  # Getter for the private attribute
-
-    @salary.setter
-    def salary(self, value):
-        if value >= 0:
-            self.__salary = value
-        else:
-            raise ValueError("Salary must be a positive number")
-
-employee = Employee("Alice", 50000)
-
-# Accessing salary using the getter
-print(employee.salary)  # Output: 50000
-
-# Modifying salary using the setter
-employee.salary = 60000
-print(employee.salary)  # Output: 60000
-
-# Trying to set an invalid salary
-try:
-    employee.salary = -100  # Raises ValueError: Salary must be a positive number
-except ValueError as e:
-    print(e)
-
-# Trying to access the private attribute directly (not possible)
-try:
-    print(employee.__salary)  # Raises AttributeError
-except AttributeError:
-    print("Cannot access private attribute directly")
-```
-
-**Explanation**:
-- The attribute `__salary` is private and cannot be accessed directly outside of the class.
-- **Name mangling** internally changes `__salary` to `_Employee__salary`, making it difficult to modify the attribute from outside the class.
-
----
-
-## Key Points:
+### Key Points:
 
 - **Public attributes** can be accessed and modified freely.
-- **Protected attributes** (e.g., `_attribute`) signal internal use, though they can still be accessed outside if needed.
-- **Private attributes** (e.g., `__attribute`) are intended to be fully private and should be accessed only through methods like getters and setters.
-- **Using `@property`** with getters and setters allows controlled access and modification while keeping the syntax clean and Pythonic (`object.attribute`).
-
----
-
-## Recap:
-
-- **Protected Attributes**: Use a single underscore (`_attribute`) to indicate the attribute is for internal use.
-- **Private Attributes**: Use double underscores (`__attribute`) to prevent external access or modification.
+- **Protected attributes** Use a single underscore (`_attribute`) to indicate the attribute is for internal use, though they can still be accessed outside if needed.
+- **Private attributes** (e.g., `__attribute`) are intended to be fully private and should be accessed only through methods like **getters** and **setters**.
 - **Getters and Setters**: Use `@property` and `@attribute.setter` to manage access to private or protected attributes.
 - **`@property` Decorator**: Provides a simple, readable way to use getters and setters while maintaining control over access.
 
-This lesson demonstrates how to manage attribute visibility and encapsulation using getters, setters, and Python’s private/protected naming conventions.
+### Data Abstraction, Data Encapsulation, and Information Hiding
+
+**Definition**:
+
+- **Data Abstraction:** Hiding complex implementation details and showing only the necessary features of an object.
+- **Data Encapsulation:** Bundling data and methods that operate on that data within a single unit (class).
+- **Information Hiding:** Restricting access to certain details of an object.
+
+**Example:**
+
+```python
+class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance  # Private attribute
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+
+    def withdraw(self, amount):
+        if 0 < amount <= self.__balance:
+            self.__balance -= amount
+
+    def get_balance(self):
+        return self.__balance
+
+account = BankAccount(1000)
+account.deposit(500)
+account.withdraw(200)
+print("Balance: ${:.2f}".format(account.get_balance()))
+
+# Expected output:
+# Balance: $1300.00
+```
+
+**Explanation:**
+
+The `BankAccount` class **encapsulates** the balance and operations on it. The balance is a private attribute (**`__balance`**), implementing information hiding. The class provides methods for interacting with the balance, abstracting the internal implementation.
+
+### `__str__` and `__repr__` Methods
+
+**Definition**:
+
+- `__str__`: Returns a **string representation** of an object for **end-users**.
+- `__repr__`: Returns a **detailed string representation** of an object for **developers**.
+
+**Example:**
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __str__(self):
+        return "{} ({} years old)".format(self.name, self.age)
+
+    def __repr__(self):
+        return "Person(name='{}', age={})".format(self.name, self.age)
+
+person = Person("Bob", 25)
+print(str(person))  # Calls __str__
+print(repr(person))  # Calls __repr__
+
+# Expected output:
+# Bob (25 years old)
+# Person(name='Bob', age=25)
+```
+
+**Explanation:**
+
+The `__str__` method provides a human-readable string representation of the object. The `__repr__` method provides a more detailed representation, typically used for debugging or development purposes.
+
+### Destructor
+
+**Definition**: A destructor is a special method called when an object is about to be destroyed.
+
+**Syntax:**
+
+```python
+class ClassName:
+    def __del__(self):
+        # cleanup code
+```
+
+**Example:**
+
+```python
+class FileHandler:
+    def __init__(self, filename):
+        self.filename = filename
+        self.file = open(filename, 'w')
+        print("File {} opened.".format(self.filename))
+
+    def __del__(self):
+        self.file.close()
+        print("File {} closed.".format(self.filename))
+
+handler = FileHandler("example.txt")
+del handler
+
+# Expected output:
+# File example.txt opened.
+# File example.txt closed.
+```
+
+**Explanation:**
+The `__del__` method is called when the `FileHandler` object is about to be destroyed. It ensures that the file is properly closed before the object is removed from memory. However, it's generally recommended to use context managers (`with` statement) for resource management instead of relying on destructors.
