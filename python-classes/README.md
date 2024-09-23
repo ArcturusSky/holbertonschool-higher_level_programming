@@ -6,6 +6,7 @@ This document will hold information I didn't know where to put in other files/re
 
 - [Python - Classes](#python---classes)
   - [Summary](#summary)
+  - [Glossary](#glossary)
   - [Object-Oriented Programming (OOP)](#object-oriented-programming-oop)
     - [Classes and Subclasses hierarchy](#classes-and-subclasses-hierarchy)
       - [Class (or Superclass)](#class-or-superclass)
@@ -35,7 +36,57 @@ This document will hold information I didn't know where to put in other files/re
     - [`__str__` and `__repr__` Methods](#__str__-and-__repr__-methods)
     - [Destructor](#destructor)
     - [Static Methods in Python](#static-methods-in-python)
-  
+
+## Glossary
+
+**A**
+- **Abstraction:** Hiding complex implementation details and displaying only necessary features of an object.
+- **Attribute:** A variable that stores data within a class or instance.
+
+**C**
+- **Class:** A blueprint or template for creating objects that encapsulate data and behavior.
+- **Class Variable:** A variable shared by all instances of a class.
+
+**D**
+- **Data Abstraction:** The process of hiding complex implementation details and showing only the necessary features of an object.
+- **Data Encapsulation:** The bundling of data and methods that operate on that data within a single unit (class).
+- **Destructor:** A method called when an object is destroyed or deleted.
+
+**F**
+- **First-class Everything:** A concept in Python where everything, including functions and classes, is treated as objects.
+
+**G**
+- **Getter:** A method that retrieves the value of a private or protected attribute.
+
+**I**
+- **Information Hiding:** The practice of restricting access to certain details of an object.
+- **Inheritance:** A mechanism where a subclass inherits methods and attributes from a superclass.
+- **Instance:** A concrete copy of the class blueprint, created with specific values for its attributes.
+
+**M**
+- **Method:** A function defined within a class that describes the behaviors of the class instances.
+
+**O**
+- **Object:** An instance of a class in object-oriented programming.
+- **Object-Oriented Programming (OOP):** A programming paradigm that organizes code into objects, combining data and functionality.
+
+**P**
+- **Private Attribute:** An attribute indicated by double underscores, intended to be accessed only within the class.
+- **Protected Attribute:** An attribute indicated by a single underscore, intended for internal use but can be accessed outside the class.
+- **Public Attribute:** An attribute that can be accessed and modified freely from outside the class.
+
+**S**
+- **Self:** A parameter in Python class methods referring to the current instance of the class.
+- **Setter:** A method that sets or updates the value of a private or protected attribute while enforcing rules (e.g., validation).
+- **Static Method:** A method that belongs to a class rather than an instance of the class.
+- **Subclass:** A specialized version of a class that inherits from a superclass.
+- **Superclass:** A general blueprint class from which other classes can inherit.
+
+**Special Symbols**
+- **`__init__`:** A special method in Python classes used for initializing new objects.
+- **`__str__`:** A special method that returns a string representation of an object.
+- **`__repr__`:** A special method that returns a detailed string representation of an object, typically used for debugging.
+
 ## Object-Oriented Programming (OOP)
 
 Object-Oriented Programming (OOP) is a way of structuring programs by combining data and functionality into entities calles **objects**, as opposed to the procedural approach which focuses on functions manipulation data.
