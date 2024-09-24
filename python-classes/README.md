@@ -36,6 +36,17 @@ This document will hold information I didn't know where to put in other files/re
     - [`__str__` and `__repr__` Methods](#__str__-and-__repr__-methods)
     - [Destructor](#destructor)
     - [Static Methods in Python](#static-methods-in-python)
+  - [Inheritance](#inheritance)
+    - [Basic syntax of inheritance](#basic-syntax-of-inheritance)
+    - [The `super()` function](#the-super-function)
+    - [Types of inheritance](#types-of-inheritance)
+      - [Single inheritance](#single-inheritance)
+      - [Multiple inheritance](#multiple-inheritance)
+      - [Multilevel inheritance](#multilevel-inheritance)
+      - [Hierarchical inheritance](#hierarchical-inheritance)
+      - [Method Overriding](#method-overriding)
+    - [Odd and Ends](#odd-and-ends)
+      - [Abstract classes](#abstract-classes)
 
 ## Glossary
 
@@ -739,3 +750,256 @@ print("Static method result: {}".format(Calculator.add_numbers(5, 3)))
 - They can be called on the class without creating an instance.
 - Use static methods when you don't need to access or modify instance or class state.
 - Static methods improve code organization by grouping related functions within a class.
+
+## Inheritance
+
+
+**Inheritance** allows a class (called the ***child***, ***subclass*** or ***derived*** class) to inherit the properties and methods from another class (called the ***parent***, ***superclass*** or ***baseclass***). This enables code reuse, making your code more organized and modular. Additionally, it allows you to add or modify features of a child class without rewriting the parent class entierely.
+
+### Basic syntax of inheritance
+
+To create a child class that inherits from a parent class, you simply specify the parent class in parentheses when defining the child class.
+
+*Example:*
+
+```python
+
+# Define the Parent class
+
+class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        print("{} makes a sound.".format(self.name))
+
+# Define the Child class that inherits from Animal
+
+class Dog(Animal):
+    def speak(self):
+    print("{} barks.".format(self.name))
+
+# Creating an instance of Dog
+
+dog_instance = Dog("Buddy")
+dog_instance.speak() 
+# Output: Buddy barks.
+
+```
+
+**Explanations:**
+
+  - **Parent Class (Animal):** This class contains an `__init__` method to initialize the name of the animal and a `speak()` method to display a sound.
+  - **Child Class (Dog):** This class inherits from `Animal`, meaning it automatically gets all its properties and methods. However, it overrides the `speak()` method with its own specific implementation.
+
+You can also access attribute this way, the same way as in any other class.
+
+```python
+
+# Example of accessing attribute from the parent class within the current class
+print(dog_instance.name) # Output: Buddy
+
+```
+
+### The `super()` function
+
+The `super()` function is used to call a method from the parent class inside the child class. This is useful when the child class needs to use the parent's logic but also extend or modify it.
+
+*Example:*
+
+```python
+
+# Parent class
+
+class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        print("{} makes a sound.".format(self.name))
+
+# Child class that inherits from Animal
+
+class Dog(Animal):
+    def __init__(self, name, breed):
+        # Use super() to call the parent class's __init_method
+        super().__init__(name)
+        self.breed = breed
+
+    def speak(self):
+        # Use the parent class's speak method
+        super().speak()
+        print("{}, the {}, barks.".format(self.name, self.breed))
+
+# Creating an instance of Dog
+
+dog_instance = Dog("Max", "Labrador")
+dog_instance.speak() 
+# Output:   Max, makes a sound.         # Inherit from the parent class
+#           Max, the Labrador, barks.   # Added in the child class
+
+```
+
+**Explanation:**
+
+  - In the `Dog` class, we use `super().__init__(name)` to initialize the `name` attribute using the `Animal` class `__init__` method.
+  - We also **EXTEND** the `speak()` method of the `Animal` class. To do this we first call `super().speak()` to use the parent method and then we **ADD** an additional behaviour for the `Dog` class. Leading to have **BOTH** of output.
+
+To sum it up in one sentence:
+
+*`super().` allows you to retrieve the method from its parent then ADD things to it, or else.*
+
+**Importance of `super()`:** It helps avoid explicit naming of the parent class, making your code more flexible and easier to maintain.
+
+### Types of inheritance
+
+In python, you can use different types of inheritance depending on your needs.
+
+#### Single inheritance
+
+This is when a child class inherits from only one parent class.
+
+```python
+
+class Parent:
+    def __init__(self):
+        print("Parent class initialized")
+    
+class Child(Parent):
+    def __init__(self):
+        super().__init__()
+        print("Child class initialized")
+
+c = Child()
+c()
+# Output:   Parent class initialized
+#           Child class initialized
+
+```
+
+#### Multiple inheritance
+
+In Python, a class can inherit from multiple parent classes. This is called **multiple inheritance**.
+
+```python
+
+class Mother:
+    def show_mother(self):
+        print("Mother's class")
+
+class Father:
+    def show_father(self):
+        print("Father's class")
+
+class Child(Mother, Father):
+    def show_child(self):
+        print("Child's class")
+
+c = Child()
+c.show_mother()
+c.show_father()
+
+# Output:   Mother's class
+#           Father's class
+```
+
+**Explanation:**
+
+Here we could call each `parent`'s methods through the `Child` class since the `Child` class has both `mother` and `father` as `parent` class.
+
+:thought_balloon: **Reminder:** "`Parent`" class is also known as "`super`" class. (Which explain why the `super().` method to get method from super/parent class.)
+
+:page_facing_up: **Note:** In cases of multiple inheritance, Python uses a **method resolution order** to determine the order in which base classes are seached when looking for a method. You can view the **MRO** of a class using the `__mro__` attribute:
+
+```python
+
+print(Child.__mro__) # Show the method resolution order for the Child class
+
+```
+
+#### Multilevel inheritance
+
+In this type of inheritance, a class inherits from a child class, creating a **chain of inheritance.**
+
+```python
+
+class Grandparent:
+    def __init__(self):
+        print("Grandparent's constructor called")
+
+class Parent(Grandparent):
+    def __init__(self):
+        super().__init__()
+        print("Parent's constructor called")
+
+class Child(Parent):
+    def __init__(self):
+        super().__init__()
+        print("Child's constructor called")
+
+c = Child()
+c()     # Calling the child in the end
+
+# Output:   Grandparent's constructor called
+#           Parent's constructor called
+#           Child's constructor called
+
+```
+
+**Explanation:**
+
+Here, it's simple it's like Russian dolls. Each layer of doll will obviously hold the one inside. Here it's the same:
+
+Grandparent has 1 method = 1 method  
+Parent inherit 1 method from Grandparent and add 1 = 2 methods  
+Child inherit the 2 methods from Parent (since we already seen that parent has 2.) and add 1 = 3 methods.
+
+#### Hierarchical inheritance
+
+This occurs when multiple child class inherit from the same parent class.
+
+```python
+
+class Animal:
+    def speak(self):
+        print("Animal makes a sound.")
+
+class Dog(Animal):
+    def speak(self):
+        print("Dog barks.")
+
+class Cat(Animal):
+    def speak(self):
+        print("Cat meows.")
+
+dog = Dog()
+cat = Cat()
+dog.speak()
+cat.speak()
+
+# Output:   Dog barks.
+#           Cat meows.
+
+```
+
+**Explanation:**
+
+Kinda the same as before, here it has been override but with the `super.` all the childs would have kept the *"Animal makes a sound"*.
+
+#### Method Overriding
+
+As seen earlier, a **subclass** (aka **Child** class) can override a method of its **superclass** (aka **parent**/**base** class) to provide its own version of the method. This is useful when the child class needs to implement its own version of the method. 
+
+For example in the previous subsection both `Dog` and `Cat` override the `speak()` method from the `Animal` class.
+
+### Odd and Ends
+
+#### Abstract classes
+
+**Definition:** An **abstract class** is a class that cannot be instantiated and is designed to be a **baseclass** for the other classes. It may contain **abstract methods** that must be implemented by **derived** (**subclass**) classes.
+
+So this is the definition given by ChatGPT. But here is what **I** understood:
+
+An **abstract class** is a class that **MUST** be a **baseclasse** (also known as **parent class**, **superclass**). In it there will be **abstract methods**. And an **abstract method** is a method that won't be used like this, called or whatever directly in the class BUT that all its child **MUST** have. So both of them are kinda like a blueprints for their childs. A Requiered blueprint that CAN'T be removed. 
+
+*Example without code:* in factories, a "**car**" is the blueprint (**abstract class**) and "**wheels**" is a requirement (**abstract methods**) in that blueprint for each car factored in the factories. You can't make car without wheels can you? So that's the idea.
