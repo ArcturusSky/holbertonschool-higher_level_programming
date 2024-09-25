@@ -2,116 +2,149 @@
 
 # Create an instance of MyList and add elements to be sorted in ascending order
 # This will be done each time for each test to reset an empty list
+
 >>> my_list = MyList()
 
 # Correct situations
 
-
 # ##... with only positive integers
-
 >>> my_list.append(3)
 >>> my_list.append(1)
 >>> my_list.append(2)
 
-# ### Print the list in ascending order
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[3, 1, 2]
+>>> my_list.print_sorted() # Print the list in ascending order
 [1, 2, 3]
-
+>>> print(my_list) # Check if the original list changed.
+[3, 1, 2]
 
 # ##... with positive and negative integers
 >>> my_list = MyList()
 >>> my_list.append(3)
->>> my_list.append(1)
 >>> my_list.append(-2)
+>>> my_list.append(1)
 
-# ### Print the list in ascending order
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[3, -2, 1]
+>>> my_list.print_sorted() # Print the list in ascending order
 [-2, 1, 3]
-
+>>> print(my_list) # Check if the original list changed.
+[3, -2, 1]
 
 # ##... with floats integers
 >>> my_list = MyList()
 >>> my_list.append(3)
->>> my_list.append(1)
 >>> my_list.append(0.5)
+>>> my_list.append(1)
 
-# ### Print the list in ascending order
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[3, 0.5, 1]
+>>> my_list.print_sorted() # Print the list in ascending order
 [0.5, 1, 3]
-
+>>> print(my_list) # Check if the original list changed.
+[3, 0.5, 1]
 
 # ##... with only one integer
 >>> my_list = MyList()
 >>> my_list.append(3)
 
-# ### Print the list in ascending order
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
 [3]
-
+>>> my_list.print_sorted() # Print the list in ascending order
+[3]
+>>> print(my_list) # Check if the original list changed.
+[3]
 
 # ##... with an empty list
 >>> my_list = MyList()
 
-# ### Print an empty list
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
 []
-
+>>> my_list.print_sorted() # Print an empty list
+[]
+>>> print(my_list) # Check if the original list changed.
+[]
 
 # ##... with a "None" list
 >>> my_list = MyList()
 >>> my_list.append(None)
 
-# ### Print a list with "None"
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
 [None]
-
+>>> my_list.print_sorted() # Print a list with "None"
+[None]
+>>> print(my_list) # Check if the original list changed.
+[None]
 
 # ##... with a single "NaN" element in the list
 >>> my_list = MyList()
 >>> my_list.append(float('nan'))
 
-# ### Print a list with only "NaN"
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
 [nan]
-
+>>> my_list.print_sorted() # Print a list with only "NaN"
+[nan]
+>>> print(my_list) # Check if the original list changed.
+[nan]
 
 # ##... with integer AND a "NaN" element in the list
 >>> my_list = MyList()
 >>> my_list.append(float('nan'))
 >>> my_list.append(3)
 
-# ### Print a sorted list with Nan and an integer
->>> my_list.print_sorted()
-[nan, 3]
 
+# ## Printing tests
+>>> print(my_list) # Print original list
+[nan, 3]
+>>> my_list.print_sorted() # Print a sorted list with Nan and an integer (they stay in the same order)
+[nan, 3]
+>>> print(my_list) # Check if the original list changed.
+[nan, 3]
 
 # ##... with a single "Infinite" element in the list
 >>> my_list = MyList()
 >>> my_list.append(float('inf'))
 
-# ### Print a list with an "infinite" element
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
 [inf]
-
+>>> my_list.print_sorted() # Print a list with an "infinite" element
+[inf]
+>>> print(my_list) # Check if the original list changed.
+[inf]
 
 # ##... with a single negative "Infinite" element in the list
 >>> my_list = MyList()
 >>> my_list.append(float('-inf'))
 
-# ### Print a list with a negative "infinite" element
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
 [-inf]
-
+>>> my_list.print_sorted() # Print a list with a negative "infinite" element
+[-inf]
+>>> print(my_list) # Check if the original list changed.
+[-inf]
 
 # ##... with integer AND a "infinite" element in the list
 >>> my_list = MyList()
->>> my_list.append(float('inf'))
 >>> my_list.append(3)
+>>> my_list.append(float('inf'))
 
-# ### Print a sorted list with integer AND a "infinite" element in the list
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
 [3, inf]
-
+>>> my_list.print_sorted() # Print a sorted list with integer AND a "infinite" element in the list
+[3, inf]
+>>> print(my_list) # Check if the original list changed.
+[3, inf]
 
 # ##... with both negative "infinite" AND "infinite" and integer element in the list
 >>> my_list = MyList()
@@ -119,29 +152,38 @@
 >>> my_list.append(3)
 >>> my_list.append(float('-inf'))
 
-# ### Print a sorted list with integer AND a "infinite" element in the list
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[inf, 3, -inf]
+>>> my_list.print_sorted() # Print a sorted list with integer AND a "infinite" element in the list
 [-inf, 3, inf]
-
+>>> print(my_list) # Check if the original list changed.
+[inf, 3, -inf]
 
 # ##... with a string instead of integer
 >>> my_list = MyList()
 >>> my_list.append("blabla")
 
-# ### Print a sorted list with a string inside
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
 ['blabla']
-
+>>> my_list.print_sorted() # Print a sorted list with a string inside
+['blabla']
+>>> print(my_list) # Check if the original list changed.
+['blabla']
 
 # ##... with a multiple strings instead of integers
 >>> my_list = MyList()
->>> my_list.append("blabla")
 >>> my_list.append("choix")
+>>> my_list.append("blabla")
 
-# ### Print a sorted list with strings inside
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+['choix', 'blabla']
+>>> my_list.print_sorted() # Print a sorted list with strings inside
 ['blabla', 'choix']
-
+>>> print(my_list) # Check if the original list changed.
+['choix', 'blabla']
 
 # ##... with lists only
 >>> my_list = MyList()
@@ -149,10 +191,13 @@
 >>> my_list.append([1])
 >>> my_list.append([3])
 
-# ### Print sorted list
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[[2], [1], [3]]
+>>> my_list.print_sorted() # Print sorted list
 [[1], [2], [3]]
-
+>>> print(my_list) # Check if the original list changed.
+[[2], [1], [3]]
 
 # ##... with tuples only
 >>> my_list = MyList()
@@ -160,10 +205,13 @@
 >>> my_list.append((1,))
 >>> my_list.append((2, 1))
 
-# ### Print sorted list of tuples
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[(3, 2), (1,), (2, 1)]
+>>> my_list.print_sorted() # Print sorted list of tuples
 [(1,), (2, 1), (3, 2)]
-
+>>> print(my_list) # Check if the original list changed.
+[(3, 2), (1,), (2, 1)]
 
 # ##... with sets only
 >>> my_list = MyList()
@@ -171,191 +219,209 @@
 >>> my_list.append({1})
 >>> my_list.append({2, 1})
 
-# ### Print just the list of sets since sets are unsorted
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[{2, 3}, {1}, {1, 2}]
+>>> my_list.print_sorted() # Print just the list of sets since sets are unsorted
+[{2, 3}, {1}, {1, 2}]
+>>> print(my_list) # Check if the original list changed.
 [{2, 3}, {1}, {1, 2}]
 
-
-# Uncorrect situations
-
+# Incorrect situations
 
 # ##... with mixed integer and string
 >>> my_list = MyList()
 >>> my_list.append("blabla")
 >>> my_list.append(2)
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+['blabla', 2]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'int' and 'str'
-
 
 # ##... with mixed integer and list
 >>> my_list = MyList()
 >>> my_list.append(0)
 >>> my_list.append([1, 2])
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[0, [1, 2]]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'list' and 'int'
-
 
 # ##... with mixed integer and tuple
 >>> my_list = MyList()
 >>> my_list.append(0)
 >>> my_list.append((1, 2))
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[0, (1, 2)]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'tuple' and 'int'
-
 
 # ##... with mixed integer and set
 >>> my_list = MyList()
 >>> my_list.append(0)
 >>> my_list.append({1, 2})
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[0, {1, 2}]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'set' and 'int'
 
-
-# ##... with mixed integer and dictionnaries
+# ##... with mixed integer and dictionaries
 >>> my_list = MyList()
 >>> my_list.append(0)
 >>> my_list.append({"key": 2})
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[0, {'key': 2}]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'dict' and 'int'
-
 
 # ##... with mixed string and list
 >>> my_list = MyList()
 >>> my_list.append("blabla")
 >>> my_list.append([1, 2])
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+['blabla', [1, 2]]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'list' and 'str'
-
 
 # ##... with mixed string and tuple
 >>> my_list = MyList()
 >>> my_list.append("blabla")
 >>> my_list.append((1, 2))
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+['blabla', (1, 2)]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'tuple' and 'str'
-
 
 # ##... with mixed string and set
 >>> my_list = MyList()
 >>> my_list.append("blabla")
 >>> my_list.append({1, 2})
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+['blabla', {1, 2}]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'set' and 'str'
-
 
 # ##... with mixed string and dictionary
 >>> my_list = MyList()
 >>> my_list.append("blabla")
 >>> my_list.append({"key": 2})
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+['blabla', {'key': 2}]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'dict' and 'str'
-
 
 # ##... with mixed list and tuple
 >>> my_list = MyList()
 >>> my_list.append([1, 2])
 >>> my_list.append((1, 2))
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[[1, 2], (1, 2)]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'tuple' and 'list'
-
 
 # ##... with mixed list and set
 >>> my_list = MyList()
 >>> my_list.append([1, 2])
 >>> my_list.append({1, 2})
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[[1, 2], {1, 2}]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'set' and 'list'
-
 
 # ##... with mixed list and dictionary
 >>> my_list = MyList()
 >>> my_list.append([1, 2])
 >>> my_list.append({"key": 2})
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[[1, 2], {'key': 2}]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'dict' and 'list'
-
 
 # ##... with mixed tuple and set
 >>> my_list = MyList()
 >>> my_list.append((1, 2))
 >>> my_list.append({1, 2})
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[(1, 2), {1, 2}]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'set' and 'tuple'
-
 
 # ##... with mixed tuple and dictionary
 >>> my_list = MyList()
 >>> my_list.append((1, 2))
 >>> my_list.append({"key": 2})
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[(1, 2), {'key': 2}]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'dict' and 'tuple'
-
 
 # ##... with mixed set and dictionary
 >>> my_list = MyList()
 >>> my_list.append({1, 2})
 >>> my_list.append({"key": 2})
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[{1, 2}, {'key': 2}]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
-    ...
+...
 TypeError: '<' not supported between instances of 'dict' and 'set'
 
 # ##... with mixed dictionary and dictionary
@@ -363,8 +429,10 @@ TypeError: '<' not supported between instances of 'dict' and 'set'
 >>> my_list.append({"clef": 3})
 >>> my_list.append({"key": 2})
 
-# ### Raise a TypeError
->>> my_list.print_sorted()
+# ## Printing tests
+>>> print(my_list) # Print original list
+[{'clef': 3}, {'key': 2}]
+>>> my_list.print_sorted() # Raise a TypeError
 Traceback (most recent call last):
     ...
 TypeError: '<' not supported between instances of 'dict' and 'dict'
