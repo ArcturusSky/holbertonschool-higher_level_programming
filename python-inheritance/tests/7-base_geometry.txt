@@ -61,10 +61,10 @@ Traceback (most recent call last):
 ...
 TypeError: name must be an integer
 
->>> bg.integer_validator("name", True)
+>>> bg.integer_validator("age", True)
 Traceback (most recent call last):
 ...
-TypeError: name must be an integer
+TypeError: age must be an integer
 
 
 # ## Testing integer_validator() with missing arguments
