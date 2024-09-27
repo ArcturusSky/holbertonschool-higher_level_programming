@@ -9,6 +9,7 @@ Circle and Rectangle. It also includes a function to demonstrate ducktyping.
 from abc import ABC, abstractmethod
 import math
 
+
 class Shape(ABC):
     """
     Abstract base class representing a geometric shape.
@@ -35,13 +36,14 @@ class Shape(ABC):
         """
         pass
 
+
 class Circle(Shape):
     """
     Concrete class representing a circle.
 
     This class implements the Shape interface for a circle.
     """
-    
+
     def __init__(self, radius):
         """
         Initialize a Circle instance.
@@ -59,7 +61,7 @@ class Circle(Shape):
             float: The area of the circle.
         """
         return abs(math.pi * (self.radius * self.radius))
-    
+
     def perimeter(self):
         """
         Calculate and return the perimeter (circumference) of the circle.
@@ -68,6 +70,7 @@ class Circle(Shape):
             float: The perimeter of the circle.
         """
         return abs(math.pi * (self.radius * 2))
+
 
 class Rectangle(Shape):
     """
@@ -79,31 +82,26 @@ class Rectangle(Shape):
     def __init__(self, width, height):
         """
         Initialize a Rectangle instance.
-
-        Args:
-            width (float): The width of the rectangle.
-            height (float): The height of the rectangle.
         """
+
         self.width = width
         self.height = height
 
     def area(self):
         """
         Calculate and return the area of the rectangle.
-
-        Returns:
-            float: The area of the rectangle.
         """
+
         return self.width * self.height
-    
+
     def perimeter(self):
         """
         Calculate and return the perimeter of the rectangle.
 
-        Returns:
-            float: The perimeter of the rectangle.
         """
+
         return (self.width * 2) + (self.height * 2)
+
 
 def shape_info(any_argument):
     """
@@ -111,10 +109,8 @@ def shape_info(any_argument):
 
     This function demonstrates ducktyping by working with any object
     that has area() and perimeter() methods, regardless of its actual class.
-
-    Args:
-        any_argument (Shape): Any object that implements area() and perimeter() methods.
     """
+
     area = any_argument.area()
     perimeter = any_argument.perimeter()
 
