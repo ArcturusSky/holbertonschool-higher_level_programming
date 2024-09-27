@@ -34,14 +34,15 @@ class CountedIterator():
         """ Method that returns number of items returnes"""
         return self.counter
 
+
 # Test code to run when module is executed as a script
 if __name__ == "__main__":
     test_counter = [1, 2, 4, 8, 16]
-    counted_iter = CountedIterator(test_counter)
+    counted = CountedIterator(test_counter)
 
     try:
         while True:
-            item = next(counted_iter)
-            print(f"Got {item}, total {counted_iter.get_count()} items iterated.")
+            item = next(counted)
+            print(f"Got {item}, total {counted.get_count()} items iterated.")
     except StopIteration:
         print("No more items.")
