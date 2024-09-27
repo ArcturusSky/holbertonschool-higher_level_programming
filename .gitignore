@@ -158,6 +158,7 @@ cython_debug/
 *test.py
 test.*
 *-main.py
+main*
 
 # my version
 *-myOwn.py
