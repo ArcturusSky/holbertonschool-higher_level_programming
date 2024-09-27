@@ -31,9 +31,8 @@ class VerboseList(list):
         Method to remove an item but with verbose
         """
 
-        else:
-            print("Removed [{}] from the list.".format(item))
-            super().remove(item)
+        print("Removed [{}] from the list.".format(item))
+        super().remove(item)
 
     def pop(self, index=-1):
         """
