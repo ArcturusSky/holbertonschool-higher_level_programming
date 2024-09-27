@@ -15,24 +15,28 @@ class VerboseList(list):
         Method to append an item but with verbose
         """
 
-        print("Added [{}] to the list.".format(item))
         super().append(item)
+        print("Added [{}] to the list.".format(item))
 
     def extend(self, x):
         """
         Method to extend the but with verbose
         """
 
-        print("Extended the list with [{}] items.".format(len(x)))
         super().extend(x)
+        print("Extended the list with [{}] items.".format(len(x)))
 
     def remove(self, item):
         """
         Method to remove an item but with verbose
         """
 
-        print("Removed [{}] from the list.".format(item))
-        super().remove(item)
+        if item not in self or item is None:
+            return None
+
+        else:
+            super().remove(item)
+            print("Removed [{}] from the list.".format(item))
 
     def pop(self, index=-1):
         """
@@ -40,5 +44,5 @@ class VerboseList(list):
         """
 
         item = self[index]
-        print("Popped [{}] from the list.".format(item))
         super().pop(index)
+        print("Popped [{}] from the list.".format(item))
