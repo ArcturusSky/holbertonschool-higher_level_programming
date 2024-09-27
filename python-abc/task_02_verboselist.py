@@ -31,9 +31,6 @@ class VerboseList(list):
         Method to remove an item but with verbose
         """
 
-        if item not in self or item is None:
-            return None
-
         else:
             print("Removed [{}] from the list.".format(item))
             super().remove(item)
