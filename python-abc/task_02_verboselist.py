@@ -31,17 +31,14 @@ class VerboseList(list):
         Method to remove an item but with verbose
         """
 
-        if item not in self or item is None:
-            return None
-
-        else:
-            print("Removed [{}] from the list.".format(item))
-            super().remove(item)
+        print("Removed [{}] from the list.".format(item))
+        super().remove(item)
 
     def pop(self, index=-1):
         """
         Method to pop an item but with verbose
         """
+
         item = self[index]
         print("Popped [{}] from the list.".format(item))
         super().pop(index)
