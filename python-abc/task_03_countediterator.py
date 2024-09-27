@@ -32,3 +32,12 @@ class CountedIterator():
         return self.counter
 
 
+test_counter = [1, 2, 4, 8, 16]
+counted_iter = CountedIterator(test_counter)
+
+try:
+    while True:
+        item = next(counted_iter)
+        print(f"Got {item}, total {counted_iter.get_count()} items iterated.")
+except StopIteration:
+    print("No more items.")
