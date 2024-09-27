@@ -23,8 +23,9 @@ class VerboseList(list):
         Method to extend the but with verbose
         """
 
+        size = len(x)
         super().extend(x)
-        print("Extended the list with [{}] items.".format(len(x)))
+        print("Extended the list with [{}] items.".format(size))
 
     def remove(self, item):
         """
