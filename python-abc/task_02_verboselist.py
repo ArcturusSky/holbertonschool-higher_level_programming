@@ -15,7 +15,7 @@ class VerboseList(list):
         Method to append an item but with verbose
         """
 
-        print("Added [{}] to the list".format(item))
+        print("Added [{}] to the list.".format(item))
         super().append(item)
 
     def extend(self, x):
