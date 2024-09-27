@@ -40,15 +40,3 @@ class FlyingFish(Fish, Bird):
     def habitat(self):
         """Print a message about the flying fish's dual habitat."""
         print("The flying fish lives both in water and the sky!")
-
-
-# Test code to run when module is executed as a script
-if __name__ == "__main__":
-    silver_fish = FlyingFish()
-    """Create an instance of FlyingFish for testing."""
-
-    silver_fish.fly()
-    silver_fish.swim()
-    silver_fish.habitat()
-
-    print(FlyingFish.mro())
