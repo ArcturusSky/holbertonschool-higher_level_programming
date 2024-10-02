@@ -203,23 +203,31 @@ Deserialization is the process of converting a JSON string back into a Python ob
 ```python
 import json
 
-json_data = '{"name": "John", "age": 30, "city": "New York"}'
-python_data = json.loads(json_data)
-print(python_data)
+json_string = '{"name": "John", "age": 30}'
+python_object = json.loads(json_string)
+
+```
+
+**NOTE:** if it's the whole json file you want to use and not a JSON **string** then:
+
+```python
+import json
+
+with open('my_file.json', 'r') as file:
+    python_object = json.load(file)
+
 ```
 
 **Explanations, breakdown of the example:**
 
-- **`json.loads()`**: Converts a JSON string into a Python object (dictionary in this case).
+- **`json.loads()`**: Converts a JSON **string** into a Python object (dictionary in this case).
 
 **Memory Aid**:
 
 - **Serialization**: Think of it as "packing" your Python data into a JSON "suitcase" for easier transport.
 - **Deserialization**: Think of it as "unpacking" the JSON "suitcase" to get your Python data back.
 
-**Real-Life Analogy**:
 
-Serialization and deserialization are like packing and unpacking a suitcase when you're traveling. The suitcase (JSON) is a standardized way to transport your belongings (data) from one place (system) to another.
 
 ## Accessing Command Line Arguments in Python
 
