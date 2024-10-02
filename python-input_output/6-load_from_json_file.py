@@ -10,6 +10,7 @@ def load_from_json_file(filename):
     """
     import json
 
-    with open(filename, "r") as file:
-        json_content = file.read()
-        python_object = json.loads(json_content)
+    with open(filename, "r", encoding='utf-8') as file:
+
+        python_object = json.load(file)
+        return python_object
