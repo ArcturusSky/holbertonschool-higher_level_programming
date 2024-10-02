@@ -125,6 +125,14 @@ file.close()
 - **`file.read()`**: Reads the entire contents of the file as a single string.
 - **`file.readlines()`**: Reads the file line by line and returns a list of strings.
 
+**Note:** To read file with special encoding, adding `encoding=''` with the special encoding between the `''`.
+
+*Example:*
+
+```python
+file = open('example.txt', encoding='utf-8')
+```
+
 ### Writing to Files
 
 To write to a file, open it in write or append mode and use the `write()` method:
