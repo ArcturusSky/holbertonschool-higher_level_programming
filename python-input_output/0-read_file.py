@@ -11,6 +11,6 @@ def read_file(filename=""):
     and  automatically close it.
     """
 
-    with open(filename) as file:
+    with open(filename, encoding='utf-8') as file:
         content = file.read()
         print(content)
