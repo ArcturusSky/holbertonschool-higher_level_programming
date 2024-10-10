@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Module to start to understand API
 """
@@ -11,7 +12,7 @@ def fetch_and_print_posts():
     # Make a GET resquest to jsplaceholder
     response = requests.get("https://jsonplaceholder.typicode.com/posts") 
 
-    print("{}".format(response.status_code))
+    print("Status Code: {}".format(response.status_code))
 
     # Check the status code of the response
     if response.status_code == 200:
@@ -41,4 +42,5 @@ def fetch_and_save_posts():
         savepost.writerows(posts) # Write multiple rows
 
 if __name__ == "__main__":
-    fetch_and_save_posts
+    fetch_and_save_posts()
+    fetch_and_print_posts()
