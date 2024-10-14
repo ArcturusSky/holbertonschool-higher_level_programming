@@ -13,7 +13,13 @@ def fetch_and_print_posts():
     Fetching information, going through it and printing only the titles
     """
     # Make a GET resquest to jsplaceholder
-    response = requests.get("https://jsonplaceholder.typicode.com/posts")
+    try:
+        response = requests.get("https://jsonplaceholder.typicode.com/posts")
+        response.raise_for_status()  # Lève une exception pour les codes d'erreur
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        return
+
 
     print("Status Code: {}".format(response.status_code))
 
@@ -30,7 +36,13 @@ def fetch_and_save_posts():
     """
 
     # Make a GET resquest to jsplaceholder
-    response = requests.get("https://jsonplaceholder.typicode.com/posts")
+    try:
+        response = requests.get("https://jsonplaceholder.typicode.com/posts")
+        response.raise_for_status()  # Lève une exception pour les codes d'erreur
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        return
+
 
     # If successful converting data into a dictionnary
     if response.status_code == 200:
@@ -40,12 +52,11 @@ def fetch_and_save_posts():
 
     # Saving it into CSV
     with open('posts.csv', mode='w', newline='', encoding='utf-8') as file:
-        fieldname = ["id", "title", "body"]
-        savepost = csv.DictWriter(file, fieldnames=fieldname)
+        savepost = csv.DictWriter(file, fieldnames=["id", "title", "body"])
         savepost.writeheader()  # Write header
         savepost.writerows(posts)  # Write multiple rows
 
 
 if __name__ == "__main__":
-    fetch_and_save_posts()
     fetch_and_print_posts()
+    fetch_and_save_posts()
