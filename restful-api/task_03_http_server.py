@@ -15,7 +15,7 @@ class SimpleAPI(BaseHTTPRequestHandler):
 
     def do_GET(self):
         """
-        
+        Function to manage Get request
         """
 
         if self.path == '/':
@@ -33,9 +33,17 @@ class SimpleAPI(BaseHTTPRequestHandler):
             data = {"name": "John", "age": 30, "city": "New York"}
             self.wfile.write(json.dumps(data).encode())  # Écrire la réponse en JSON
 
+        elif self.path == '/info':
+            self.send_response(200)  # 200 OK
+            self.send_header('Content-type', 'application/json')  # Type de contenu JSON
+            self.end_headers()  # Fin des en-têtes
+            # Créer un dictionnaire et le convertir en JSON
+            data = {"version": "1.0", "description": "A simple API built with http.server"}
+            self.wfile.write(json.dumps(data).encode())  # Écrire la réponse en JSON
+
         elif self.path == '/status':
             self.send_response(200)
-            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(b'OK')
         
