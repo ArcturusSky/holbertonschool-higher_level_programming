@@ -12,22 +12,21 @@ def fetch_and_print_posts():
     """
     Fetching information, going through it and printing only the titles
     """
-    # Make a GET resquest to jsplaceholder
-    try:
-        response = requests.get("https://jsonplaceholder.typicode.com/posts")
-        response.raise_for_status()  # Lève une exception pour les codes d'erreur
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-        return
 
+    # Request to get the data from jsonplaceholder
+    url = 'https://jsonplaceholder.typicode.com/posts'
+    response = requests.get(url)
 
+    # Printing the current status
     print("Status Code: {}".format(response.status_code))
 
-    # Check the status code of the response
+    # If successful, printing each title in the dict
     if response.status_code == 200:
         data = response.json()
         for post in data:
             print(post['title'])
+    else:
+        print("Failed to retrieve posts.")
 
 
 def fetch_and_save_posts():
@@ -35,14 +34,9 @@ def fetch_and_save_posts():
     Fetching and saving as a dictionnary and serialized it into CSV
     """
 
-    # Make a GET resquest to jsplaceholder
-    try:
-        response = requests.get("https://jsonplaceholder.typicode.com/posts")
-        response.raise_for_status()  # Lève une exception pour les codes d'erreur
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-        return
-
+    # Request to get the data from jsonplaceholder
+    url = 'https://jsonplaceholder.typicode.com/posts'
+    response = requests.get(url)
 
     # If successful converting data into a dictionnary
     if response.status_code == 200:
@@ -55,6 +49,8 @@ def fetch_and_save_posts():
         savepost = csv.DictWriter(file, fieldnames=["id", "title", "body"])
         savepost.writeheader()  # Write header
         savepost.writerows(posts)  # Write multiple rows
+
+    print("Posts saved to post.csv")
 
 
 if __name__ == "__main__":
