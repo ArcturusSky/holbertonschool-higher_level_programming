@@ -9,14 +9,26 @@ app = Flask(__name__)
 
 # Dictionnaire des utilisateurs (déplacé en global pour les routes dynamiques)
 users = {
-    "jane": {"username": "jane", "name": "Jane", "age": 28, "city": "Los Angeles"},
-    "john": {"username": "john", "name": "John", "age": 30, "city": "New York"},
+    "jane": {
+        "username": "jane",
+        "name": "Jane",
+        "age": 28,
+        "city": "Los Angeles"
+    },
+    "john": {
+        "username": "john",
+        "name": "John",
+        "age": 30,
+        "city": "New York"
+    }
 }
+
 
 @app.route("/")
 def home():
     """Function to display a welcoming message"""
     return "Welcome to the Flask API!"
+
 
 @app.route("/data")
 def get_usernames():
@@ -24,23 +36,26 @@ def get_usernames():
 
     # Extraire seulement les clés (usernames) du dictionnaire
     usernames = list(users.keys())
-    
+
     # Retourner la réponse en format JSON
     return jsonify(usernames)
+
 
 @app.route("/status")
 def status():
     """Function to get current status"""
     return "OK"
 
+
 @app.route('/users/<username>')
 def show_user_profile(username):
     """Function to get a user profile"""
     if username not in users:
-        return jsonify({"error": "User not found"}), 404  
+        return jsonify({"error": "User not found"}), 404
     # Retourne un code 404 pour utilisateur non trouvé
-    
+
     return jsonify(users[username])  # Retourne l'objet utilisateur en JSON
+
 
 # Route pour ajouter un utilisateur via une requête POST
 @app.route("/add_user", methods=["POST"])
@@ -63,8 +78,12 @@ def add_user():
         "city": data.get("city")
     }
 
-    # Retourner un message de confirmation avec les données de l'utilisateur ajouté
-    return jsonify({"message": "User added successfully", "user": users[username]}), 201
+    # Retourner un message de confirmation
+    # avec les données de l'utilisateur ajouté
+    return jsonify({
+        "message": "User added successfully",
+        "user": users[username]}), 201
+
 
 # Pour lancer le serveur
 if __name__ == "__main__":
