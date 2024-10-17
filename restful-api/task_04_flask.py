@@ -34,10 +34,10 @@ def home():
 def get_usernames():
     """Function to get list of all users"""
 
-    # Extraire seulement les clés (usernames) du dictionnaire
+    # Extract only username key from dict
     usernames = list(users.keys())
 
-    # Retourner la réponse en format JSON
+    # If no users, return empty list
     return jsonify(usernames)
 
 
@@ -51,26 +51,27 @@ def status():
 def show_user_profile(username):
     """Function to get a user profile"""
     if username not in users:
+        # Return 404 if user not found
         return jsonify({"error": "User not found"}), 404
-    # Retourne un code 404 pour utilisateur non trouvé
+    # Return user profil object in JSON
+    return jsonify(users[username])
 
-    return jsonify(users[username])  # Retourne l'objet utilisateur en JSON
 
-
-# Route pour ajouter un utilisateur via une requête POST
+# Path to add a user
 @app.route("/add_user", methods=["POST"])
 def add_user():
     """Function to add a new user via POST request"""
-    # Extraire les données JSON envoyées dans la requête
+    
+    # Extract data sent to the json request
     data = request.get_json()
 
-    # Vérifier que toutes les informations nécessaires sont présentes
+    # Check if all fields are given
     if not data or "username" not in data:
-        return jsonify({"error": "Invalid data"}), 400
+        return jsonify({"error": "Username is required"}), 400
 
     username = data["username"]
 
-    # Ajouter l'utilisateur dans le dictionnaire global `users`
+    # Add new user in the global dict `users`
     users[username] = {
         "username": username,
         "name": data.get("name"),
@@ -78,13 +79,12 @@ def add_user():
         "city": data.get("city")
     }
 
-    # Retourner un message de confirmation
-    # avec les données de l'utilisateur ajouté
+    # Return new user data + confirm msg
     return jsonify({
         "message": "User added successfully",
         "user": users[username]}), 201
 
 
-# Pour lancer le serveur
+# To run server
 if __name__ == "__main__":
     app.run()
