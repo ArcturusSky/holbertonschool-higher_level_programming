@@ -4,37 +4,48 @@ Module to develop manage API security and authentication techniques
 """
 
 
-from flask import Flask
+JWT_SECRET_KEY = "Ch4Gg13" # Constant for clearer code
+
+from flask import Flask, jsonify, request
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import JWTManager
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import get_jwt
-from flask_jwt_extended import verify_jwt_in_request
-from requests import request
-from json import jsonify
+from flask_jwt_extended import (
+    JWTManager,
+    create_access_token,
+    get_jwt_identity,
+    jwt_required,
+    verify_jwt_in_request,
+    get_jwt,
+)
 from functools import wraps
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
-app.config["JWT_SECRET_KEY"] = "Ch4Gg13" # secure key
+app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY # secure key
 jwt = JWTManager(app)
 
 
 # Users list with hashed passwords
 users = {
-    "charlie": {"username": "Charlie", "password": generate_password_hash("L0v3_V4gG13"), "role": "admin"},
-    "susan": {"username": "Susan", "password": generate_password_hash("0Ld_H4g"), "role": "user"}
+    "charlie": {
+        "username": "Charlie",
+        "password": generate_password_hash("L0v3_V4gG13"),
+        "role": "admin",
+    },
+    "susan": {
+        "username": "Susan",
+        "password": generate_password_hash("0Ld_H4g"),
+        "role": "user",
+    },
 }
 
 
 # Function to verify if username and if password match with username
 @auth.verify_password
 def verify_password(username, password):
+    """Verify username and password match."""
     if username in users and \
-            check_password_hash(users.get(username), password):
+            check_password_hash(users[username]["password"], password):
         return username
 
 
@@ -42,12 +53,14 @@ def verify_password(username, password):
 @app.route("/basic-protected")
 @auth.login_required
 def welcome():
+    """Protected route that returns a welcome message."""
     return jsonify({"Basic Auth: Access Granted"}), 200
 
 
 # Custom decorator created to verify if request is JWT
 # and if user is an admin. Seen in flask.jwt-extended doc
 def admin_required():
+    """Decorator to check if user is an admin."""
     def wrapper(fn):
         @wraps(fn)
         def decorator(*args, **kwargs):
@@ -66,16 +79,17 @@ def admin_required():
 @app.route("/login", methods=["POST"])
 @auth.login_required
 def login():
+    """Authenticate user and return a JWT token."""
     username = request.json.get("username", None)
     password = request.json.get("password", None)
 
     # Check if all requiered filed are given. If not 400 Bad request
-    if not username or password:
+    if not username or not password:
          return jsonify({"msg": "Missing username or password"}), 400
 
     # Check authentication, if not 401 Unauthorized
     if username not in users or \
-            not check_password_hash(users.get(username), password):
+            not check_password_hash(users[username]["password"], password):
             return jsonify({"msg": "Invalid credentials"}), 401
 
     # Generate and return JWT
@@ -99,14 +113,15 @@ def login():
 @app.route("/jwt-protected", methods=["GET"])
 @jwt_required
 def protected():
-    # Access the identity of the current user with get_jwt_identity
+    """Protected route that returns the current user's identity."""
     current_user = get_jwt_identity()
     return jsonify(logged_in_as=current_user), 200
 
 # Path for admin only
 @app.route("/admin-only", methods=["GET"])
-@admin_required
+@admin_required()
 def only_admin_access():
+    """Protected route that only admin can access."""
     return jsonify({"Admin Access":"Access Granted"})
 
 # Handling errors
