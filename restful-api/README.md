@@ -1,6 +1,8 @@
-Some informations useful
+" Some informations useful
 
 Testing with curl our flask API
+
+
 
 Required: opening the flask API this way:
 
