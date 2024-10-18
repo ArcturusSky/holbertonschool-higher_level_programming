@@ -4,7 +4,7 @@ Module to develop a Simple API using Python with Flask
 """
 
 from flask import Flask, jsonify, request
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 app = Flask(__name__)
 
