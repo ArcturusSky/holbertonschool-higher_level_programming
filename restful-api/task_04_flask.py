@@ -8,20 +8,7 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 # Dictionnaire des utilisateurs (déplacé en global pour les routes dynamiques)
-users = {
-    "jane": {
-        "username": "jane",
-        "name": "Jane",
-        "age": 28,
-        "city": "Los Angeles"
-    },
-    "john": {
-        "username": "john",
-        "name": "John",
-        "age": 30,
-        "city": "New York"
-    }
-}
+users = {}
 
 
 @app.route("/")
@@ -64,7 +51,7 @@ def add_user():
     
     # Extract data sent to the json request
     data = request.get_json()
-    username = data.get(username)
+    username = data.get("username")
 
     # Check if all fields are given
     if not username:
