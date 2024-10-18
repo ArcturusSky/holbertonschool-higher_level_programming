@@ -4,11 +4,12 @@ Module to develop a Simple API using Python with Flask
 """
 
 from flask import Flask, jsonify, request
+from typing import Dict, Any
 
 app = Flask(__name__)
 
-# Dictionnaire des utilisateurs (déplacé en global pour les routes dynamiques)
-users = {}
+# In-memory dictionary to store users (starting empty)
+users: Dict[str, Dict[str, Any]] = {}
 
 
 @app.route("/")
