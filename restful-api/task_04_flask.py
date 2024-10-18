@@ -68,16 +68,10 @@ def add_user():
     # Check if all fields are given
     if not data or "username" not in data:
         return jsonify({"error": "Username is required"}), 400
+    if data in users:
+        return jsonify({"error": "Username already exist"}), 400
 
     username = data["username"]
-
-    # Add new user in the global dict `users`
-    users[username] = {
-        "username": username,
-        "name": data.get("name"),
-        "age": data.get("age"),
-        "city": data.get("city")
-    }
 
     # Return new user data + confirm msg
     return jsonify({
