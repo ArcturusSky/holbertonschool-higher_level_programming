@@ -31,14 +31,14 @@ def home():
 
 
 @app.route("/data")
-def get_username():
+def get_usernames():
     """Function to get list of all users"""
 
     # Extract only username key from dict
-    username = list(users.keys())
+    usernames = list(users.keys())
 
     # If no users, return empty list
-    return jsonify(username)
+    return jsonify(usernames)
 
 
 @app.route("/status")
@@ -70,7 +70,23 @@ def add_user():
     if not username:
         return jsonify({"error": "Username is required"}), 400
 
+    # Check if user with same username and identical data already exists
+    if username in users:
+        existing_user = users[username]
+        if (existing_user["name"] == data.get("name") and
+            existing_user["age"] == data.get("age") and
+            existing_user["city"] == data.get("city")):
+            return jsonify({"error": "User with identical data already exists"}), 400
+
     username = data["username"]
+
+    # Add new user in the global dict `users`
+    users[username] = {
+        "username": username,
+        "name": data.get("name"),
+        "age": data.get("age"),
+        "city": data.get("city")
+    }
 
     # Return new user data + confirm msg
     return jsonify({
