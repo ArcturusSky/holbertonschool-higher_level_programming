@@ -31,7 +31,7 @@ def home():
 
 
 @app.route("/data")
-def get_usernames():
+def get_username():
     """Function to get list of all users"""
 
     # Extract only username key from dict
