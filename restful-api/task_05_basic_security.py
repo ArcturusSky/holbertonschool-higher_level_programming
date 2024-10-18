@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Module to develop manage API security and authentication techniques
+Module to manage API security and authentication techniques
 """
 
 
@@ -66,7 +66,7 @@ def admin_required():
         def decorator(*args, **kwargs):
             verify_jwt_in_request()
             claims = get_jwt()
-            if claims["is_admin"]:
+            if claims.get("is_admin", False):
                 # Note: means "any func with any arg and any keywords"
                 return fn(*args, **kwargs)
             else:
@@ -75,38 +75,32 @@ def admin_required():
     return wrapper
 
 
-# Path protected by JWT with payload, I think.
+
+# Path protected by JWT with payload
 @app.route("/login", methods=["POST"])
-@auth.login_required
 def login():
     """Authenticate user and return a JWT token."""
     username = request.json.get("username", None)
     password = request.json.get("password", None)
 
-    # Check if all requiered filed are given. If not 400 Bad request
+    # Check if all required fields are given. If not, return 400 Bad request
     if not username or not password:
         return jsonify({"msg": "Missing username or password"}), 400
 
-    # Check authentication, if not 401 Unauthorized
+    # Check authentication, if not, return 401 Unauthorized
     if username not in users or \
             not check_password_hash(users[username]["password"], password):
         return jsonify({"msg": "Invalid credentials"}), 401
 
-    # Generate and return JWT
-    else:
-        # Retrieve the user's role
-        user_role = users[username]["role"]
+    # Retrieve the user's role and generate JWT
+    user_role = users[username]["role"]
 
-        # If admin, get admin acces
-        if user_role == "admin":
-            access_token = create_access_token(
-                identity=username, additional_claims={"is_admin": True})
-            return jsonify(access_token=access_token), 200
+    # If admin, get admin access
+    additional_claims = {"is_admin": user_role == "admin"}
+    access_token = create_access_token(identity=username, additional_claims=additional_claims)
+    
+    return jsonify(access_token=access_token), 200
 
-        # If not admin, regular access
-        else:
-            access_token = create_access_token(identity=username)
-            return jsonify(access_token=access_token), 200
 
 
 # Path proctected by simple JWT, I think.
@@ -120,7 +114,7 @@ def protected():
 
 # Path for admin only
 @app.route("/admin-only", methods=["GET"])
-@admin_required()
+@admin_required
 def only_admin_access():
     """Protected route that only admin can access."""
     return jsonify({"Admin Access": "Access Granted"})
@@ -128,12 +122,12 @@ def only_admin_access():
 
 # Handling errors
 @jwt.unauthorized_loader
-def handle_unauthorized_error(err):
+def handle_unauthorized_error(_):
     return jsonify({"error": "Missing or invalid token"}), 401
 
 
 @jwt.invalid_token_loader
-def handle_invalid_token_error(err):
+def handle_invalid_token_error(_):
     return jsonify({"error": "Invalid token"}), 401
 
 
