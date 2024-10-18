@@ -56,26 +56,6 @@ def welcome():
     """Protected route that returns a welcome message."""
     return jsonify({"Basic Auth: Access Granted"}), 200
 
-
-# Custom decorator created to verify if request is JWT
-# and if user is an admin. Seen in flask.jwt-extended doc
-def admin_required():
-    """Decorator to check if user is an admin."""
-    def wrapper(fn):
-        @wraps(fn)
-        def decorator(*args, **kwargs):
-            verify_jwt_in_request()
-            claims = get_jwt()
-            if claims.get("is_admin", False):
-                # Note: means "any func with any arg and any keywords"
-                return fn(*args, **kwargs)
-            else:
-                return jsonify({"error": "Admin access required"}), 403
-        return decorator
-    return wrapper
-
-
-
 # Path protected by JWT with payload
 @app.route("/login", methods=["POST"])
 def login():
@@ -113,21 +93,23 @@ def protected():
 
 
 # Path for admin only
-@app.route("/admin-only", methods=["GET"])
-@admin_required
-def only_admin_access():
-    """Protected route that only admin can access."""
-    return jsonify({"Admin Access": "Access Granted"})
+@app.route('/admin-only')
+@jwt_required()
+def admin_only():
+    current_user = get_jwt_identity()
+    if current_user['role'] != 'admin':
+        return jsonify({"error": "Admin access required"}), 403
+    return "Admin Access: Granted"
 
 
 # Handling errors
 @jwt.unauthorized_loader
-def handle_unauthorized_error(_):
+def handle_unauthorized_error(err):
     return jsonify({"error": "Missing or invalid token"}), 401
 
 
 @jwt.invalid_token_loader
-def handle_invalid_token_error(_):
+def handle_invalid_token_error(err):
     return jsonify({"error": "Invalid token"}), 401
 
 
