@@ -35,10 +35,10 @@ def get_usernames():
     """Function to get list of all users"""
 
     # Extract only username key from dict
-    usernames = list(users.keys())
+    username = list(users.keys())
 
     # If no users, return empty list
-    return jsonify(usernames)
+    return jsonify(username)
 
 
 @app.route("/status")
