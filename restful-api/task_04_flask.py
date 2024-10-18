@@ -8,8 +8,8 @@ from typing import Dict, Any
 
 app = Flask(__name__)
 
-# In-memory dictionary to store users (starting empty)
-users: Dict[str, Dict[str, Any]] = {}
+# In-memory dictionary to store users, where each username is associated with a list of user objects
+users: Dict[str, List[Dict[str, Any]]] = {}
 
 
 @app.route("/")
@@ -22,7 +22,11 @@ def home():
 def get_usernames():
     """Function to get list of all users"""
 
-    # Extract only username key from dict
+    # Test if data not in JSON
+    if not request.is_json:
+        return jsonify({"error": "Request data must be JSON"}), 400
+
+    # Extract only username keys from dict
     usernames = list(users.keys())
 
     # If no users, return empty list
@@ -52,35 +56,40 @@ def add_user():
     
     # Extract data sent to the json request
     data = request.get_json()
-    username = data.get("username")
 
-    # Check if all fields are given
-    if not username:
+    # Vérification que les données JSON sont valides
+    if not data or "username" not in data:
         return jsonify({"error": "Username is required"}), 400
-
-    # Check if user with same username and identical data already exists
-    if username in users:
-        existing_user = users[username]
-        if (existing_user["name"] == data.get("name") and
-            existing_user["age"] == data.get("age") and
-            existing_user["city"] == data.get("city")):
-            return jsonify({"error": "User with identical data already exists"}), 400
 
     username = data["username"]
 
-    # Add new user in the global dict `users`
-    users[username] = {
+    # Check if all necessary fields are present
+    if "name" not in data or "age" not in data or "city" not in data:
+        return jsonify({"error": "All fields (name, age, city) are required"}), 400
+
+    # Check if user with same username and identical data already exists
+    if username in users:
+        for existing_user in users[username]:
+            if (existing_user["name"] == data["name"] and
+                existing_user["age"] == data["age"] and
+                existing_user["city"] == data["city"]):
+                return jsonify({"error": "User with identical data already exists"}), 400
+
+    # Add new user to the list associated with the username
+    if username not in users:
+        users[username] = []  # Initialize a list for this username if it doesn't exist yet
+
+    users[username].append({
         "username": username,
-        "name": data.get("name"),
-        "age": data.get("age"),
-        "city": data.get("city")
-    }
+        "name": data["name"],
+        "age": data["age"],
+        "city": data["city"]
+    })
 
     # Return new user data + confirm msg
     return jsonify({
         "message": "User added successfully",
-        "user": users[username]}), 201
-
+        "user": data}), 201
 
 # To run server
 if __name__ == "__main__":
