@@ -259,7 +259,7 @@ print(letters) # Output: ["a", "b", "C", "D", "E", "f", "g"]
 
 #### The `len()` function
 
-You can use the `len()` function to get the lenghts of a list.
+You can use the `len()` function to get the lengths of a list.
 
 - *Example:*
 
