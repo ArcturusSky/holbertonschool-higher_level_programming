@@ -9,62 +9,28 @@ This repository will holds all the projects and tasks about **MySQL**.
   - [Glossary](#glossary)
   - [Introduction to MySQL](#introduction-to-mysql)
     - [Basic Syntax](#basic-syntax)
-  - [Creating a Database](#creating-a-database)
-    - [Basic Syntax](#basic-syntax-1)
-  - [Creating Tables](#creating-tables)
-    - [Basic Syntax](#basic-syntax-2)
+  - [Creating (CREATE DATABASE) a Database](#creating-create-database-a-database)
+  - [Deleting (DROP DATABASE) a database](#deleting-drop-database-a-database)
   - [Inserting Data](#inserting-data)
-    - [Basic Syntax](#basic-syntax-3)
+    - [Basic Syntax](#basic-syntax-1)
   - [Querying Data](#querying-data)
-    - [Basic Syntax](#basic-syntax-4)
+    - [Basic Syntax](#basic-syntax-2)
   - [Updating Data](#updating-data)
-    - [Basic Syntax](#basic-syntax-5)
+    - [Basic Syntax](#basic-syntax-3)
   - [Deleting Data](#deleting-data)
-    - [Basic Syntax](#basic-syntax-6)
+    - [Basic Syntax](#basic-syntax-4)
   - [Joins](#joins)
-    - [Basic Syntax](#basic-syntax-7)
+    - [Basic Syntax](#basic-syntax-5)
   - [Aggregate Functions](#aggregate-functions)
-    - [Basic Syntax](#basic-syntax-8)
+    - [Basic Syntax](#basic-syntax-6)
   - [Indexes](#indexes)
-    - [Basic Syntax](#basic-syntax-9)
+    - [Basic Syntax](#basic-syntax-7)
   - [Conclusion](#conclusion)
   - [Author](#author)
   - [P.S about Author](#ps-about-author)
 
 ## Glossary
 
-**A**
-- **Arithmetic Operators:** Symbols that represent basic mathematical operations like addition and multiplication.
-
-**B**
-- **`break`:** A statement used to exit a loop prematurely.
-
-**C**
-- **Comments:** Lines in the code that are ignored by Python, used for documentation.
-- **`continue`:** A statement used to skip the rest of a loop iteration and proceed to the next one.
-
-**F**
-- **Function:** A block of reusable code that performs a specific task.
-
-**I**
-- **`if` Statement:** A conditional statement that runs a block of code only if the condition is true.
-- **Indentation:** The use of spaces or tabs to define code blocks in Python.
-
-**L**
-- **Loops:** Constructs that repeat a block of code until a condition is met (`while`, `for`).
-
-**P**
-- **`pass`:** A statement used as a placeholder when no code is needed.
-
-**R**
-- **`range()`:** A function that generates a sequence of numbers.
-
-**S**
-- **Scope:** The region of the program where a variable is accessible.
-
-**T**
-- **Traceback:** An error message showing where and why a program crashed.
- 
 
 ## Introduction to MySQL
 
@@ -90,19 +56,26 @@ SELECT first_name, last_name FROM customers WHERE age > 18;
 - **WHERE**: This keyword allows us to filter the results based on a condition.
 - **age > 18**: This is the condition; we're only selecting customers over 18.
 
-## Creating a Database
+## Creating (CREATE DATABASE) a Database
 
 **Definition**
 A database in MySQL is a collection of tables that store related data.
-
-### Basic Syntax
 
 *Example:*
 
 ```sql
 CREATE DATABASE my_first_database;
-USE my_first_database;
 ```
+
+## Deleting (DROP DATABASE) a database
+
+**Definition:**
+A database can be deleted of course by "dropping" it.
+
+*Example:*
+
+```sql
+DROP DATABASE databasename;
 
 **Explanations:**
 
