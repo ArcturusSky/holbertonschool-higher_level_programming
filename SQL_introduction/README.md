@@ -8,23 +8,35 @@ This repository will holds all the projects and tasks about **MySQL**.
   - [Summary](#summary)
   - [Glossary](#glossary)
   - [Introduction to MySQL](#introduction-to-mysql)
-    - [Basic Syntax](#basic-syntax)
-  - [Creating (CREATE DATABASE) a Database](#creating-create-database-a-database)
-  - [Deleting (DROP DATABASE) a database](#deleting-drop-database-a-database)
-  - [Inserting Data](#inserting-data)
-    - [Basic Syntax](#basic-syntax-1)
-  - [Querying Data](#querying-data)
-    - [Basic Syntax](#basic-syntax-2)
-  - [Updating Data](#updating-data)
-    - [Basic Syntax](#basic-syntax-3)
-  - [Deleting Data](#deleting-data)
-    - [Basic Syntax](#basic-syntax-4)
-  - [Joins](#joins)
-    - [Basic Syntax](#basic-syntax-5)
-  - [Aggregate Functions](#aggregate-functions)
-    - [Basic Syntax](#basic-syntax-6)
-  - [Indexes](#indexes)
-    - [Basic Syntax](#basic-syntax-7)
+  - [CREATE DATABASE](#create-database)
+    - [Create a simple database](#create-a-simple-database)
+    - [Create a database with conditions](#create-a-database-with-conditions)
+  - [CREATE TABLE](#create-table)
+    - [Create a simple table](#create-a-simple-table)
+    - [Create a table with constraints](#create-a-table-with-constraints)
+  - [INSERT](#insert)
+    - [Insert a single record](#insert-a-single-record)
+    - [Insert multiple records](#insert-multiple-records)
+  - [SELECT](#select)
+    - [Select all columns](#select-all-columns)
+    - [Select specific columns](#select-specific-columns)
+    - [Select with conditions](#select-with-conditions)
+  - [UPDATE](#update)
+    - [Update a single record](#update-a-single-record)
+    - [Update multiple records](#update-multiple-records)
+  - [DELETE](#delete)
+    - [Delete a single record](#delete-a-single-record)
+    - [Delete multiple records](#delete-multiple-records)
+  - [JOIN](#join)
+    - [Inner join](#inner-join)
+    - [Left join](#left-join)
+  - [AGGREGATE FUNCTIONS](#aggregate-functions)
+    - [Calculate average](#calculate-average)
+    - [Calculate maximum](#calculate-maximum)
+    - [Calculate minimum](#calculate-minimum)
+  - [INDEXES](#indexes)
+    - [Create an index](#create-an-index)
+    - [Drop an index](#drop-an-index)
   - [Conclusion](#conclusion)
   - [Author](#author)
   - [P.S about Author](#ps-about-author)
@@ -37,60 +49,31 @@ This repository will holds all the projects and tasks about **MySQL**.
 **Definition**
 MySQL is an open-source relational database management system (RDBMS) that uses Structured Query Language (SQL) for managing and manipulating data.
 
-### Basic Syntax
+## CREATE DATABASE
 
-To interact with MySQL, we use SQL commands. Let's start with a simple example:
+### Create a simple database
 
-*Example:*
+The `CREATE DATABASE` command is used to create a new database in MySQL.
 
 ```sql
-SELECT first_name, last_name FROM customers WHERE age > 18;
+CREATE DATABASE example_database;
 ```
 
-**Explanations, breakdown of the example:**
+### Create a database with conditions
 
-- **SELECT**: This keyword specifies which columns we want to retrieve.
-- **first_name, last_name**: These are the specific columns we're selecting.
-- **FROM**: This keyword indicates which table we're querying.
-- **customers**: This is the name of the table we're querying.
-- **WHERE**: This keyword allows us to filter the results based on a condition.
-- **age > 18**: This is the condition; we're only selecting customers over 18.
+Creating a database can have different conditions like:
 
-## Creating (CREATE DATABASE) a Database
-
-**Definition**
-A database in MySQL is a collection of tables that store related data.
-
-*Example:*
+- Creating if it doesn't exist:
 
 ```sql
-CREATE DATABASE my_first_database;
+CREATE DATABASE IF NOT EXISTS example_database;
 ```
 
-## Deleting (DROP DATABASE) a database
+## CREATE TABLE
 
-**Definition:**
-A database can be deleted of course by "dropping" it.
+### Create a simple table
 
-*Example:*
-
-```sql
-DROP DATABASE databasename;
-
-**Explanations:**
-
-- **CREATE DATABASE**: This command creates a new database.
-- **my_first_database**: This is the name we're giving to our new database.
-- **USE**: This command tells MySQL which database we want to work with.
-
-## Creating Tables
-
-**Definition**
-Tables are structures within a database that store specific sets of data.
-
-### Basic Syntax
-
-*Example:*
+The `CREATE TABLE` command is used to create a new table in the database.
 
 ```sql
 CREATE TABLE students (
@@ -102,63 +85,76 @@ CREATE TABLE students (
 );
 ```
 
-**Explanations:**
+### Create a table with constraints
 
-- **CREATE TABLE**: This command creates a new table.
-- **students**: This is the name we're giving to our new table.
-- **id INT PRIMARY KEY AUTO_INCREMENT**: This creates a unique identifier for each row.
-- **VARCHAR(50)**: This data type is for strings up to 50 characters long.
-- **INT**: This data type is for whole numbers.
-- **FLOAT**: This data type is for decimal numbers.
+You can add constraints like NOT NULL and UNIQUE to ensure data integrity.
 
-## Inserting Data
+- Adding constraints:
 
-**Definition**
-Inserting data means adding new rows of information to a table.
+```sql
+CREATE TABLE students (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    age INT NOT NULL,
+    grade FLOAT,
+    UNIQUE (first_name, last_name)
+);
+```
 
-### Basic Syntax
+## INSERT
 
-*Example:*
+### Insert a single record
+
+The `INSERT` command is used to add new rows of data to a table.
 
 ```sql
 INSERT INTO students (first_name, last_name, age, grade)
 VALUES ('John', 'Doe', 18, 85.5);
 ```
 
-**Explanations:**
+### Insert multiple records
 
-- **INSERT INTO**: This command is used to add new data to a table.
-- **students**: This is the name of the table we're inserting data into.
-- **VALUES**: This keyword precedes the actual data we're inserting.
-
-## Querying Data
-
-**Definition**
-Querying data means retrieving information from the database based on specific criteria.
-
-### Basic Syntax
-
-*Example:*
+You can insert multiple records at once by listing them in the VALUES clause.
 
 ```sql
-SELECT * FROM students WHERE grade > 80 ORDER BY last_name ASC;
+INSERT INTO students (first_name, last_name, age, grade)
+VALUES
+    ('Jane', 'Smith', 20, 90.0),
+    ('Alice', 'Johnson', 19, 88.5);
 ```
 
-**Explanations:**
+## SELECT
 
-- **SELECT ***: This selects all columns from the table.
-- **FROM students**: This specifies which table we're querying.
-- **WHERE grade > 80**: This filters for students with grades above 80.
-- **ORDER BY last_name ASC**: This sorts the results by last name in ascending order.
+### Select all columns
 
-## Updating Data
+The `SELECT` command is used to retrieve data from the database.
 
-**Definition**
-Updating data means modifying existing records in a table.
+```sql
+SELECT * FROM students;
+```
 
-### Basic Syntax
+### Select specific columns
 
-*Example:*
+You can specify which columns you want to retrieve.
+
+```sql
+SELECT first_name, last_name FROM students;
+```
+
+### Select with conditions
+
+Use the `WHERE` clause to filter the results.
+
+```sql
+SELECT first_name, last_name FROM students WHERE age > 18;
+```
+
+## UPDATE
+
+### Update a single record
+
+The `UPDATE` command is used to modify existing records in a table.
 
 ```sql
 UPDATE students
@@ -166,39 +162,41 @@ SET grade = 90.0
 WHERE first_name = 'John' AND last_name = 'Doe';
 ```
 
-**Explanations:**
+### Update multiple records
 
-- **UPDATE**: This keyword specifies that we're modifying existing data.
-- **SET**: This keyword precedes the column and new value we're setting.
-- **WHERE**: This clause determines which records will be updated.
+You can update multiple records by using conditional statements.
 
-## Deleting Data
+```sql
+UPDATE students
+SET grade = grade + 5
+WHERE grade < 80;
+```
 
-**Definition**
-Deleting data means removing specific records from a table.
+## DELETE
 
-### Basic Syntax
+### Delete a single record
 
-*Example:*
+The `DELETE` command is used to remove records from a table.
+
+```sql
+DELETE FROM students
+WHERE first_name = 'John' AND last_name = 'Doe';
+```
+
+### Delete multiple records
+
+You can delete multiple records by using conditional statements.
 
 ```sql
 DELETE FROM students
 WHERE grade < 60;
 ```
 
-**Explanations:**
+## JOIN
 
-- **DELETE FROM**: This command is used to remove data from a table.
-- **WHERE**: This clause specifies which records to delete.
+### Inner join
 
-## Joins
-
-**Definition**
-Joins allow us to combine rows from two or more tables based on a related column between them.
-
-### Basic Syntax
-
-*Example:*
+The `INNER JOIN` command is used to combine rows from two or more tables based on a related column between them.
 
 ```sql
 SELECT students.first_name, students.last_name, courses.course_name
@@ -207,51 +205,65 @@ INNER JOIN enrollments ON students.id = enrollments.student_id
 INNER JOIN courses ON enrollments.course_id = courses.id;
 ```
 
-**Explanations:**
+### Left join
 
-- **INNER JOIN**: This type of join returns records that have matching values in both tables.
-- **ON**: This keyword is used to specify the condition for the join.
-
-## Aggregate Functions
-
-**Definition**
-Aggregate functions perform a calculation on a set of values and return a single result.
-
-### Basic Syntax
-
-*Example:*
+The `LEFT JOIN` command returns all records from the left table (students), and the matched records from the right table (enrollments). If there is no match, the result is NULL.
 
 ```sql
-SELECT AVG(grade) as average_grade, MAX(grade) as highest_grade
+SELECT students.first_name, students.last_name, courses.course_name
+FROM students
+LEFT JOIN enrollments ON students.id = enrollments.student_id
+LEFT JOIN courses ON enrollments.course_id = courses.id;
+```
+
+## AGGREGATE FUNCTIONS
+
+### Calculate average
+
+The `AVG()` function calculates the average of a set of values.
+
+```sql
+SELECT AVG(grade) as average_grade
 FROM students;
 ```
 
-**Explanations:**
+### Calculate maximum
 
-- **AVG()**: This function calculates the average of a set of values.
-- **MAX()**: This function returns the maximum value in a set.
-- **as**: This keyword is used to give an alias to the result column.
+The `MAX()` function returns the maximum value in a set.
 
-## Indexes
+```sql
+SELECT MAX(grade) as highest_grade
+FROM students;
+```
 
-**Definition**
-An index is a data structure that improves the speed of data retrieval operations on a database table.
+### Calculate minimum
 
-### Basic Syntax
+The `MIN()` function returns the minimum value in a set.
 
-*Example:*
+```sql
+SELECT MIN(grade) as lowest_grade
+FROM students;
+```
+
+## INDEXES
+
+### Create an index
+
+An index is a data structure that improves the speed of data retrieval operations.
 
 ```sql
 CREATE INDEX idx_last_name
 ON students (last_name);
 ```
 
-**Explanations:**
+### Drop an index
 
-- **CREATE INDEX**: This command creates a new index.
-- **idx_last_name**: This is the name we're giving to our new index.
-- **ON students (last_name)**: This specifies the table and column to index.
+You can drop an index if it's no longer needed.
 
+```sql
+DROP INDEX idx_last_name
+ON students;
+```
 
 ## Conclusion
 
