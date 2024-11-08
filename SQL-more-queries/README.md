@@ -3,6 +3,9 @@
 - [MySQL more queries](#mysql-more-queries)
   - [Creating MySQL Users](#creating-mysql-users)
   - [Granting Privileges in MySQL](#granting-privileges-in-mysql)
+    - [Granting Privileges](#granting-privileges)
+    - [Displaying User Privileges](#displaying-user-privileges)
+    - [Revoking Privileges](#revoking-privileges)
   - [Primary Keys](#primary-keys)
   - [Foreign Keys](#foreign-keys)
   - [Constraints (NOT NULL and UNIQUE)](#constraints-not-null-and-unique)
@@ -75,7 +78,7 @@ Privileges determine what a user can do with data in a database. They can includ
 * `USAGE`: Connect to a database without additional privileges
 * `ALL PRIVILEGES`: Have all available privileges on a database or table
 
-**Granting Privileges**
+### Granting Privileges
 
 ```sql
 GRANT privilege_type ON database_name.table_name TO 'username'@'host';
@@ -97,7 +100,7 @@ GRANT ALL PRIVILEGES ON mydatabase.* TO 'john_doe'@'localhost';
 - **`john_doe`**: The user to whom the privilege is being granted
 - **`ALL PRIVILEGES`**: Grants all privileges on the database
 
-**Displaying User Privileges**
+### Displaying User Privileges
 
 ```sql
 SHOW GRANTS FOR 'username'@'host';
@@ -109,9 +112,9 @@ SHOW GRANTS FOR 'username'@'host';
 SHOW GRANTS FOR 'john_doe'@'localhost';
 ```
 
-This will display the privileges of the user 'john_doe'@'localhost'.
+This will display the privileges of the user `'john_doe'@'localhost'`.
 
-**Revoke Privileges**
+### Revoking Privileges
 
 ```sql
 REVOKE privilege_type ON database_name.table_name FROM 'username'@'host';
