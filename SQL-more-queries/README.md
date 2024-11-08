@@ -2,7 +2,7 @@
 
 - [MySQL more queries](#mysql-more-queries)
   - [Creating MySQL Users](#creating-mysql-users)
-  - [Managing User Privileges](#managing-user-privileges)
+  - [Granting Privileges in MySQL](#granting-privileges-in-mysql)
   - [Primary Keys](#primary-keys)
   - [Foreign Keys](#foreign-keys)
   - [Constraints (NOT NULL and UNIQUE)](#constraints-not-null-and-unique)
@@ -55,18 +55,27 @@ CREATE USER 'john_doe'@'localhost' IDENTIFIED BY 'SecurePassword123!';
 - **`'localhost'`**: The host from which the user can connect
 - **`'SecurePassword123!'`**: The password for the user
 
-## Managing User Privileges
+## Granting Privileges in MySQL
 
-**Short Description/Explanation:**
+**Privileges**
+Privileges determine what a user can do with data in a database. They can include permissions to access, modify, delete, or execute specific operations.
 
+**Types of Privileges**
 
-Managing user privileges ensures that users have the appropriate permissions to access and modify databases and tables. This is crucial for maintaining data integrity and security.
+* `SELECT`: Read data
+* `INSERT`: Add new data
+* `UPDATE`: Modify existing data
+* `DELETE`: Delete data
+* `CREATE`: Create new databases and tables
+* `DROP`: Delete existing databases and tables
+* `ALTER`: Modify the structure of existing tables
+* `EXECUTE`: Execute stored procedures
+* `GRANT OPTION`: Transfer privileges to other users
+* `REFERENCES`: Create foreign keys
+* `USAGE`: Connect to a database without additional privileges
+* `ALL PRIVILEGES`: Have all available privileges on a database or table
 
-**Command Explanation:**
-
-The `GRANT` command is used to assign specific privileges to a user on a database or table. This allows you to control what actions a user can perform on your databases.
-
-**Basic Syntax:**
+**Granting Privileges**
 
 ```sql
 GRANT privilege_type ON database_name.table_name TO 'username'@'host';
@@ -88,21 +97,37 @@ GRANT ALL PRIVILEGES ON mydatabase.* TO 'john_doe'@'localhost';
 - **`john_doe`**: The user to whom the privilege is being granted
 - **`ALL PRIVILEGES`**: Grants all privileges on the database
 
-**Privilege Types:**
+**Displaying User Privileges**
 
-- `SELECT`: Allows the user to **read** data from a database or table.
-- `INSERT`: Allows the user to **insert** new records into a database or table.
-- `UPDATE`: Allows the user to **modify** existing records in a database or table.
-- `DELETE`: Allows the user to **delete** records from a database or table.
-- `CREATE`: Allows the user to **create** new databases, tables, or indexes.
-- `DROP`: Allows the user to **delete** existing databases, tables, or indexes.
-- `ALTER`: Allows the user to **modify** the structure of a database or table.
-- `INDEX`: Allows the user to **create** or drop indexes on a table.
-- `CREATE TEMPORARY TABLES:` Allows the user to **create** temporary tables.
-- `CREATE VIEW`: Allows the user to **create** views.
-- `SHOW VIEW:` Allows the user to
+```sql
+SHOW GRANTS FOR 'username'@'host';
+```
+
+**Example:**
+
+```sql
+SHOW GRANTS FOR 'john_doe'@'localhost';
+```
+
+This will display the privileges of the user 'john_doe'@'localhost'.
+
+**Revoke Privileges**
+
+```sql
+REVOKE privilege_type ON database_name.table_name FROM 'username'@'host';
+```
+
+**Example:**
+
+```sql
+REVOKE SELECT ON mydatabase.* FROM 'john_doe'@'localhost';
+```
+
+This will revoke the `SELECT` privilege on the mydatabase database from the user `'john_doe'@'localhost'`.
 
 ## Primary Keys
+
+[Course dedicated to Keys and their relationships](https://github.com/ArcturusSky/holbertonschool-higher_level_programming/blob/main/SQL-more-queries/PRIMARY_AND_FOREIGN_KEYS.md)
 
 **Short Description/Explanation:**
 
