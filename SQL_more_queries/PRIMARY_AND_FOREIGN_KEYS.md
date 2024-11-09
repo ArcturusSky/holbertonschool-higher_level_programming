@@ -1,4 +1,22 @@
-# Primary Keys and Foreign Keys
+# KEYS in DATABASES and their relationships
+
+## Summary
+
+- [KEYS in DATABASES and their relationships](#keys-in-databases-and-their-relationships)
+  - [Summary](#summary)
+  - [Primary Keys and Foreign Keys](#primary-keys-and-foreign-keys)
+  - [Relationship Tables and Keys](#relationship-tables-and-keys)
+    - [Database Relationship Patterns](#database-relationship-patterns)
+      - [1. One-to-One Relationship](#1-one-to-one-relationship)
+      - [2. One-to-Many Relationship](#2-one-to-many-relationship)
+      - [3. Many-to-Many Relationship](#3-many-to-many-relationship)
+      - [4. Self-Referencing Relationship](#4-self-referencing-relationship)
+      - [5. Polymorphic Relationship (Advanced)](#5-polymorphic-relationship-advanced)
+    - [Relationship Pattern Cheat Sheet](#relationship-pattern-cheat-sheet)
+    - [The Three-Table Pattern (for Many to Many Relationships)](#the-three-table-pattern-for-many-to-many-relationships)
+
+
+## Primary Keys and Foreign Keys
 
 This example demonstrates how to create a small school database system where we track students and their course enrollments.
 
@@ -108,17 +126,18 @@ INSERT INTO enrollments (student_id, course_id, enrollment_date) VALUES
    WHERE students.first_name = 'John';
    ```
 
-# Relationship Tables and Keys
+## Relationship Tables and Keys
 
-## Database Relationship Patterns
+### Database Relationship Patterns
 
-### 1. One-to-One Relationship
+#### 1. One-to-One Relationship
 **Description:**
 - One record in Table A relates to exactly one record in Table B
 - Least common relationship type
 
 **Example:**
 ```sql
+-- Create tables
 CREATE TABLE users (
     user_id INT PRIMARY KEY,
     username VARCHAR(50)
@@ -126,10 +145,25 @@ CREATE TABLE users (
 
 CREATE TABLE user_profiles (
     profile_id INT PRIMARY KEY,
-    user_id INT UNIQUE,  -- Key to enforce one-to-one
+    user_id INT UNIQUE,
     full_name VARCHAR(100),
+    bio TEXT,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+
+-- Insert sample data
+INSERT INTO users VALUES (1, 'johndoe'), (2, 'janedoe');
+INSERT INTO user_profiles VALUES 
+(1, 1, 'John Doe', 'Software developer'),
+(2, 2, 'Jane Doe', 'Data scientist');
+
+-- Retrieve user with their profile
+SELECT 
+    users.username, 
+    user_profiles.full_name, 
+    user_profiles.bio
+FROM users
+JOIN user_profiles ON users.user_id = user_profiles.user_id;
 ```
 
 **Use Cases:**
@@ -137,13 +171,14 @@ CREATE TABLE user_profiles (
 - Employee and employee details
 - Passport and person information
 
-### 2. One-to-Many Relationship
+#### 2. One-to-Many Relationship
 **Description:**
 - One record in Table A can relate to multiple records in Table B
 - Most common relationship type
 
 **Example:**
 ```sql
+-- Create tables
 CREATE TABLE departments (
     department_id INT PRIMARY KEY,
     department_name VARCHAR(50)
@@ -155,6 +190,32 @@ CREATE TABLE employees (
     employee_name VARCHAR(100),
     FOREIGN KEY (department_id) REFERENCES departments(department_id)
 );
+
+-- Insert sample data
+INSERT INTO departments VALUES 
+(1, 'Engineering'), 
+(2, 'Marketing');
+
+INSERT INTO employees VALUES 
+(1, 1, 'John Doe'),
+(2, 1, 'Jane Smith'),
+(3, 2, 'Bob Johnson');
+
+-- Retrieve all employees in a specific department
+SELECT 
+    departments.department_name, 
+    employees.employee_name
+FROM departments
+JOIN employees ON departments.department_id = employees.department_id
+WHERE departments.department_name = 'Engineering';
+
+-- Count employees per department
+SELECT 
+    departments.department_name, 
+    COUNT(employees.employee_id) as employee_count
+FROM departments
+LEFT JOIN employees ON departments.department_id = employees.department_id
+GROUP BY departments.department_name;
 ```
 
 **Use Cases:**
@@ -162,13 +223,14 @@ CREATE TABLE employees (
 - One customer, multiple orders
 - One author, multiple books
 
-### 3. Many-to-Many Relationship
+#### 3. Many-to-Many Relationship
 **Description:**
 - Multiple records in Table A can relate to multiple records in Table B
 - Requires a junction/relationship table
 
 **Example:**
 ```sql
+-- Create tables
 CREATE TABLE students (
     student_id INT PRIMARY KEY,
     student_name VARCHAR(100)
@@ -182,10 +244,43 @@ CREATE TABLE courses (
 CREATE TABLE student_courses (
     student_id INT,
     course_id INT,
+    enrollment_date DATE,
     PRIMARY KEY (student_id, course_id),
     FOREIGN KEY (student_id) REFERENCES students(student_id),
     FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
+
+-- Insert sample data
+INSERT INTO students VALUES 
+(1, 'John Doe'), 
+(2, 'Jane Smith');
+
+INSERT INTO courses VALUES 
+(1, 'Mathematics'), 
+(2, 'Computer Science');
+
+INSERT INTO student_courses VALUES 
+(1, 1, '2023-09-01'),
+(1, 2, '2023-09-01'),
+(2, 1, '2023-09-02');
+
+-- Retrieve courses for a specific student
+SELECT 
+    students.student_name, 
+    courses.course_name, 
+    student_courses.enrollment_date
+FROM students
+JOIN student_courses ON students.student_id = student_courses.student_id
+JOIN courses ON student_courses.course_id = courses.course_id
+WHERE students.student_name = 'John Doe';
+
+-- Retrieve students in each course
+SELECT 
+    courses.course_name, 
+    COUNT(student_courses.student_id) as student_count
+FROM courses
+LEFT JOIN student_courses ON courses.course_id = student_courses.course_id
+GROUP BY courses.course_name;
 ```
 
 **Use Cases:**
@@ -193,19 +288,56 @@ CREATE TABLE student_courses (
 - Actors in multiple movies
 - Products in multiple categories
 
-### 4. Self-Referencing Relationship
+#### 4. Self-Referencing Relationship
 **Description:**
 - A table has a relationship with itself
 - Useful for hierarchical or tree-like structures
 
 **Example:**
 ```sql
+-- Create table
 CREATE TABLE employees (
     employee_id INT PRIMARY KEY,
     employee_name VARCHAR(100),
     manager_id INT,
     FOREIGN KEY (manager_id) REFERENCES employees(employee_id)
 );
+
+-- Insert sample data
+INSERT INTO employees VALUES 
+(1, 'CEO', NULL),
+(2, 'CTO', 1),
+(3, 'Senior Developer', 2),
+(4, 'Junior Developer', 3);
+
+-- Retrieve employees with their managers
+SELECT 
+    e.employee_name as employee, 
+    m.employee_name as manager
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.employee_id;
+
+-- Retrieve hierarchy levels
+WITH RECURSIVE employee_hierarchy AS (
+    SELECT 
+        employee_id, 
+        employee_name, 
+        manager_id, 
+        0 as hierarchy_level
+    FROM employees
+    WHERE manager_id IS NULL
+
+    UNION ALL
+
+    SELECT 
+        e.employee_id, 
+        e.employee_name, 
+        e.manager_id, 
+        eh.hierarchy_level + 1
+    FROM employees e
+    JOIN employee_hierarchy eh ON e.manager_id = eh.employee_id
+)
+SELECT * FROM employee_hierarchy;
 ```
 
 **Use Cases:**
@@ -214,19 +346,51 @@ CREATE TABLE employees (
 - Category and subcategories
 - Family tree relationships
 
-### 5. Polymorphic Relationship (Advanced)
+#### 5. Polymorphic Relationship (Advanced)
 **Description:**
 - A record can belong to multiple types of related records
 - More complex, typically implemented in application logic
 
 **Example Concept:**
 ```sql
+-- Create tables for polymorphic comments
+CREATE TABLE posts (
+    post_id INT PRIMARY KEY,
+    title VARCHAR(255)
+);
+
+CREATE TABLE photos (
+    photo_id INT PRIMARY KEY,
+    photo_url VARCHAR(255)
+);
+
 CREATE TABLE comments (
     comment_id INT PRIMARY KEY,
     content TEXT,
-    resource_type VARCHAR(50),  -- 'post', 'photo', 'video'
+    resource_type ENUM('post', 'photo'),
     resource_id INT
 );
+
+-- Insert sample data
+INSERT INTO posts VALUES (1, 'First Blog Post');
+INSERT INTO photos VALUES (1, 'vacation.jpg');
+
+INSERT INTO comments VALUES 
+(1, 'Great post!', 'post', 1),
+(2, 'Nice photo!', 'photo', 1);
+
+-- Retrieve comments for different resource types
+SELECT 
+    comments.comment_id, 
+    comments.content, 
+    comments.resource_type,
+    CASE 
+        WHEN comments.resource_type = 'post' THEN posts.title
+        WHEN comments.resource_type = 'photo' THEN photos.photo_url
+    END as resource_details
+FROM comments
+LEFT JOIN posts ON comments.resource_type = 'post' AND comments.resource_id = posts.post_id
+LEFT JOIN photos ON comments.resource_type = 'photo' AND comments.resource_id = photos.photo_id;
 ```
 
 **Use Cases:**
@@ -250,7 +414,7 @@ CREATE TABLE comments (
 4. Maintain data integrity
 5. Keep design as simple as possible
 
-## The Three-Table Pattern (for Many to Many Relationships)
+### The Three-Table Pattern (for Many to Many Relationships)
 
 **Typical Structure:**
 1. **First Table (Main Entity)**: 
