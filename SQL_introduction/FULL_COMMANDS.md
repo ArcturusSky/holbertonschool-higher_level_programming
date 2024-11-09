@@ -12,6 +12,7 @@ This document will hold a full list of commands and their subqueries for easy fi
     - [CREATE TABLE](#create-table)
       - [Basic table creation](#basic-table-creation)
       - [Table creation with constraints](#table-creation-with-constraints)
+      - [Create table in a specific database created before](#create-table-in-a-specific-database-created-before)
       - [Create table from another table](#create-table-from-another-table)
     - [CREATE INDEX](#create-index)
       - [Basic index](#basic-index)
@@ -208,6 +209,14 @@ CREATE TABLE table_name (
 
 #### Table creation with constraints
 
+In order: 
+- With `PRIMARY KEY`
+- `NOT NULL`
+- With Checking
+- `UNIQUE` :warning: if `PRIMARY KEY` used, `UNIQUE` isn't required as `PRIMARY KEY` already enforces uniqueness
+- With `DEFAULT` value
+- With time default value
+
 ```sql
 CREATE TABLE students (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -217,6 +226,21 @@ CREATE TABLE students (
     email VARCHAR(100) UNIQUE,
     grade FLOAT DEFAULT 0.0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+#### Create table in a specific database created before
+
+```sql
+CREATE DATABASE IF NOT EXISTS hbtn_0d_usa;
+
+-- Select the database to work in for the table creation
+USE hbtn_0d_usa;
+
+-- Note: If Primary Key, UNIQUE isn't required
+CREATE TABLE IF NOT EXISTS states (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(256) NOT NULL 
 );
 ```
 
