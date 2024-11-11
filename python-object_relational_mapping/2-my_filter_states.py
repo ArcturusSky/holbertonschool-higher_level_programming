@@ -12,7 +12,7 @@ if __name__ == "__main__":
     username = sys.argv[1]
     password = sys.argv[2]
     database_name = sys.argv[3]
-    state_name_searched = sys.argv[4]
+    state_searched = sys.argv[4]
 
     # Connecting to the MySQL database
     db = MySQLdb.connect(
@@ -30,8 +30,9 @@ if __name__ == "__main__":
     usedatabase.execute("""
                         SELECT *
                         FROM states
-                        WHERE states.name = %s
-                        """, (sys.argv[4],))
+                        WHERE states.name = '{}'
+                        ORDER BY states.id ASC
+                        """.format(state_searched,))
 
     # Get the result, a list of tuple with "states.id"
     # and "states.name", from the query above (SELECT * etc)
