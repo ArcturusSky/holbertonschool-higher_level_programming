@@ -1,4 +1,4 @@
-# Introduction to Python ORM**
+# Introduction to Python ORM
 
 ## Summary
 
