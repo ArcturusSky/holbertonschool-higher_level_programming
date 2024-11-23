@@ -3,9 +3,9 @@
 
 let button = document.getElementById('red_header');
 button.addEventListener('click', function() {
-    ColorThingInColor('header', 'FF0000');
+  ColorThingInColor('header', 'FF0000');
 });
 
-export default function ColorThingInColor(Tag, ColorCode) {
-    document.querySelector(${Tag}).style.color = `#${ColorCode}`;
-};
+function ColorThingInColor(Tag, ColorCode) {
+  document.querySelector(Tag).style.color = `#${ColorCode}`;
+}
