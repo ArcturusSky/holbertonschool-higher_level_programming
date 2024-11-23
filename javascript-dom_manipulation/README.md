@@ -48,6 +48,8 @@ La manipulation du DOM (Document Object Model) est une compétence essentielle e
       - [`.dispatchEvent`](#dispatchevent-1)
     - [Création d'événements personnalisés](#création-dévénements-personnalisés)
       - [`CustomEvent`](#customevent)
+  - [Fetch API](#fetch-api)
+    - [Basic syntax](#basic-syntax)
 
 
 ---
@@ -1006,3 +1008,41 @@ element.dispatchEvent(monEvenement);
 3. **Déclenchement** : L'événement est déclenché, activant l'écouteur.  
 
 ---  
+
+## Fetch API
+
+**Definition**
+La Fetch API est une interface qui permet de récupérer des ressources, notamment depuis le réseau. Elle remplace de manière plus puissante et flexible l'ancienne méthode `XMLHttpRequest`.
+
+### Basic syntax
+Pour utiliser la Fetch API, on utilise la méthode `fetch()`, qui est disponible dans presque tous les contextes où l'on peut vouloir récupérer des ressources.
+
+*Example:*
+
+```javascript
+// On utilise la méthode fetch pour récupérer des données d'une URL
+fetch('https://api.example.com/data') // chemin vers la ressource
+  .then(response => { // ici, on gère la réponse
+    if (!response.ok) { // on vérifie si la réponse est un succès
+      throw new Error('Network response was not ok ' + response.statusText); // si non, on lance une erreur
+    }
+    return response.json(); // on retourne le contenu sous forme JSON
+  })
+  .then(data => { // on gère les données récupérées
+    console.log(data); // on affiche les données dans la console
+  })
+  .catch(error => { // on gère les erreurs
+    console.error('There has been a problem with your fetch operation:', error); // on affiche l'erreur
+  });
+```
+
+**Explanations, breakdown of the example:**
+
+- `fetch('https://api.example.com/data')` : On appelle la méthode fetch avec l'URL de la ressource que l'on souhaite récupérer.
+- `.then(response => { ... })` : On utilise la méthode `.then()` pour gérer la réponse dès qu'elle est reçue.
+- `if (!response.ok) { ... }` : On vérifie si la réponse est correcte (statut HTTP 200). Si ce n'est pas le cas, on lance une erreur.
+- `return response.json();` : On transforme la réponse en format JSON, ce qui nous permet de manipuler les données plus facilement.
+- `.then(data => { ... })` : Une fois les données récupérées, on peut les utiliser comme on le souhaite.
+- `.catch(error => { ... })` : Si une erreur survient à n'importe quel moment, on peut la gérer ici.
+
+**Moyens mnémotechniques**: Pense à "fetch" comme à "attraper" (to fetch = attraper). On « attrape » des données d'une URL, un peu comme si on tirait un livre d'une étagère.
