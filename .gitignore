@@ -176,3 +176,10 @@ python-input_output/8-my_class_2.py
 python-input_output/8-main_2.py
 python-input_output/student.json
 restful-api/task_04_flask copy.py
+node_modules
+*-main.js
+.eslintrc.js
+babel.config.js
+nodesource_setup.sh
+package-lock.json
+package.json
