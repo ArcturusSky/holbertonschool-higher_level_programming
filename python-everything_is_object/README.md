@@ -388,14 +388,13 @@ y = x  # y is an alias of x
 ```
 
 ### 7. How to know if two variables are identical?
-Use the `is` operator to check if two variables refer to the exact same object:
+Use the `==` operator to check if two variables has the same value:
 
 ```python
 x = [1, 2, 3]
-y = x
 z = [1, 2, 3]
 
-print(x is y)  # True
+print(x == z)  # True
 print(x is z)  # False
 ```
 
