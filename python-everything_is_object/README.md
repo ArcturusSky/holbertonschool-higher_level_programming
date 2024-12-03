@@ -15,6 +15,20 @@
     - [Garbage Collection (Necessary here?)](#garbage-collection-necessary-here)
     - [Circular References and Solutions](#circular-references-and-solutions)
   - [Best Practices](#best-practices)
+- [Questions asked in the project:](#questions-asked-in-the-project)
+  - [1. What is an object?](#1-what-is-an-object)
+  - [2. What is the difference between a class and an object or instance?](#2-what-is-the-difference-between-a-class-and-an-object-or-instance)
+  - [3. What is the difference between immutable object and mutable object?](#3-what-is-the-difference-between-immutable-object-and-mutable-object)
+  - [4. What is a reference?](#4-what-is-a-reference)
+  - [5. What is an assignment?](#5-what-is-an-assignment)
+  - [6. What is an alias?](#6-what-is-an-alias)
+  - [7. How to know if two variables are identical?](#7-how-to-know-if-two-variables-are-identical)
+  - [8. How to know if two variables are linked to the same object?](#8-how-to-know-if-two-variables-are-linked-to-the-same-object)
+  - [9. How to display the variable identifier (memory address in CPython)?](#9-how-to-display-the-variable-identifier-memory-address-in-cpython)
+  - [10. What is mutable and immutable?](#10-what-is-mutable-and-immutable)
+  - [11. Built-in mutable types:](#11-built-in-mutable-types)
+  - [12. Built-in immutable types:](#12-built-in-immutable-types)
+  - [13. How does Python pass variables to functions?](#13-how-does-python-pass-variables-to-functions)
 
 ## What Are Objects and References?
 
@@ -318,3 +332,122 @@ Circular references occur when two or more objects reference each other, creatin
 9. **Employ defensive programming:** Check types and validate input, especially when working with mutable objects.
 
 10. **Document your code:** Clearly explain the behavior of functions, especially regarding mutability and side effects.
+
+# Questions asked in the project:
+
+## 1. What is an object?
+An object in Python is a fundamental unit that combines data (attributes) and behavior (methods). Everything in Python is an object, including numbers, strings, functions, and custom-defined types. Objects have:
+- A type
+- A value
+- An identity (memory address)
+
+## 2. What is the difference between a class and an object or instance?
+- A class is a blueprint or template that defines the structure and behavior of objects
+- An object (instance) is a concrete realization of a class, with its own unique data
+
+Example:
+```python
+class Car:  # Class (blueprint)
+    def __init__(self, color):
+        self.color = color
+
+my_car = Car("red")  # Object/Instance
+```
+
+## 3. What is the difference between immutable object and mutable object?
+- Immutable objects cannot be changed after creation
+- Mutable objects can be modified after creation
+
+```python
+# Immutable (string)
+x = "hello"
+x = x + " world"  # Creates a new string
+
+# Mutable (list)
+y = [1, 2, 3]
+y.append(4)  # Modifies the existing list
+```
+
+## 4. What is a reference?
+A reference is a name that points to an object in memory. It's how variables "refer to" or "point to" objects.
+
+## 5. What is an assignment?
+An assignment creates a reference to an object, binding a name to that object.
+
+```python
+x = [1, 2, 3]  # Assigns the list to x
+y = x  # Creates another reference to the same list
+```
+
+## 6. What is an alias?
+An alias is when multiple variables refer to the same object in memory.
+
+```python
+x = [1, 2, 3]
+y = x  # y is an alias of x
+```
+
+## 7. How to know if two variables are identical?
+Use the `is` operator to check if two variables refer to the exact same object:
+
+```python
+x = [1, 2, 3]
+y = x
+z = [1, 2, 3]
+
+print(x is y)  # True
+print(x is z)  # False
+```
+
+## 8. How to know if two variables are linked to the same object?
+Use the `is` operator or `id()` function:
+
+```python
+x = [1, 2, 3]
+y = x
+print(x is y)  # True
+print(id(x) == id(y))  # True
+```
+
+## 9. How to display the variable identifier (memory address in CPython)?
+Use the `id()` function:
+
+```python
+x = [1, 2, 3]
+print(id(x))  # Prints the memory address
+```
+
+## 10. What is mutable and immutable?
+- Mutable: Can be changed after creation
+- Immutable: Cannot be changed after creation
+
+## 11. Built-in mutable types:
+- Lists
+- Dictionaries
+- Sets
+
+## 12. Built-in immutable types:
+- Integers
+- Floats
+- Strings
+- Tuples
+- Frozensets
+
+## 13. How does Python pass variables to functions?
+Python uses "pass by object reference":
+- For immutable objects, it behaves like pass-by-value
+- For mutable objects, the function can modify the original object
+
+```python
+def modify_list(lst):
+    lst.append(4)  # Modifies the original list
+
+def modify_int(x):
+    x += 1  # Creates a new object, doesn't modify original
+
+my_list = [1, 2, 3]
+modify_list(my_list)  # my_list is now [1, 2, 3, 4]
+
+my_int = 5
+modify_int(my_int)  # my_int remains 5
+```
