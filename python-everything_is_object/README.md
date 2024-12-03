@@ -9,10 +9,10 @@
   - [Collections in Python](#collections-in-python)
     - [Dictionaries and Keys](#dictionaries-and-keys)
     - [Lists vs Dictionaries](#lists-vs-dictionaries)
-  - [Managing State in Python](#managing-state-in-python)
+  - [Managing State in Python (Necessary here?)](#managing-state-in-python-necessary-here)
     - [Nonlocal Statements](#nonlocal-statements)
   - [Memory Management](#memory-management)
-    - [Garbage Collection](#garbage-collection)
+    - [Garbage Collection (Necessary here?)](#garbage-collection-necessary-here)
     - [Circular References and Solutions](#circular-references-and-solutions)
   - [Best Practices](#best-practices)
 
@@ -20,7 +20,7 @@
 
 **Definition and role of objects and references in Python**
 
-In Python, objects are entities that contain both data and code. Variables are references to these objects, acting as labels that point to the objects in memory. Understanding how variables reference objects is crucial for efficient data management and manipulation in Python.
+:warning: In Python, **objects** are entities that contains **both data and code**. **Variables** are **references** to these **objects**, acting as **labels** that point to the objects in memory. Understanding how variables reference objects is crucial for efficient data management and manipulation in Python.
 
 ### Mutable vs Immutable Types
 
@@ -28,13 +28,13 @@ In Python, objects are entities that contain both data and code. Variables are r
 
 Mutable types can be modified after creation, while immutable types cannot be altered once created. This distinction is crucial for understanding how Python handles data and memory.
 
-Examples of immutable types:
+**Examples of immutable types:**
 - Integers
 - Floats
 - Strings
 - Tuples
 
-Examples of mutable types:
+**Examples of mutable types:**
 - Lists
 - Dictionaries
 - Sets
@@ -59,13 +59,13 @@ print(mutable_list)  # This will print: [1, 2, 3, 4]
 
 **Explanations, breakdown of the example:**
 
-- **Immutable Types (e.g., strings):** When modifying a string, Python creates a new string object instead of modifying the original one. The variable is then reassigned to this new object.
-- **Mutable Types (e.g., lists):** Lists can be modified directly, allowing you to change their contents without creating a new object. The same object is modified in place.
+- **Immutable Types (here strings):** When modifying a **string**, Python creates a **new** string object instead of modifying the original one. The **variable** is then **reassigned** to this new object.
+- **Mutable Types (here lists):** **Lists** can be modified directly, allowing you to change their contents **without creating a new object**. The same object is modified in place.
 
 **Implications of mutability:**
-1. Memory usage: Immutable objects can be more memory-efficient in certain scenarios as Python can reuse identical immutable objects.
-2. Performance: Operations on mutable objects can be faster as they don't require creating new objects.
-3. Function arguments: Understanding mutability is crucial when passing objects to functions, as it affects whether the original object can be modified within the function.
+1. **Memory usage:** Immutable objects can be more memory-efficient in certain scenarios as Python can reuse identical immutable objects.
+2. **Performance:** Operations on mutable objects can be faster as they don't require creating new objects.
+3. **Function arguments:** Understanding mutability is crucial when passing objects to functions, as it affects **whether the original object can be modified within the function.**
 
 ## Working with References
 
@@ -94,15 +94,15 @@ print(alias_list)            # This will print: [5, 2, 3]
 
 **Risks related to aliasing:**
 
-1. Unintended side effects: Modifications made through one alias affect all other aliases, which can lead to bugs if not anticipated.
-2. Difficulty in tracking changes: In large programs, it can be challenging to keep track of all aliases and their potential modifications.
-3. Concurrency issues: In multi-threaded programs, aliasing can lead to race conditions if multiple threads modify the same object simultaneously.
+1. **Unintended side effects**: Modifications made through **one** alias **affect all other aliases**, which can lead to bugs if not anticipated.
+2. **Difficulty in tracking changes**: In large programs, it can be challenging to keep track of all aliases and their potential modifications.
+3. **Concurrency issues**: In multi-threaded programs, aliasing can lead to race conditions if multiple threads modify the same object simultaneously.
 
 ### Cloning
 
 **Creating an independent copy to avoid conflicts**
 
-Cloning allows you to create an independent copy of an object, preventing modifications to the copy from affecting the original object.
+**Cloning** allows you to create an **independent copy** of an object, preventing modifications to the copy from affecting the original object.
 
 ```python
 # Example of cloning
@@ -123,14 +123,14 @@ print(cloned_list)             # This will print: [5, 2, 3]
 
 **Cloning techniques with concrete examples:**
 
-1. Slice notation (`[:]`): Works for lists and other sequence types.
-2. `list()` constructor: Creates a shallow copy of a list.
-3. `copy.copy()`: Creates a shallow copy of any object.
-4. `copy.deepcopy()`: Creates a deep copy, also copying nested objects.
+1. **Slice notation (`[:]`)**: Works for **lists** and other **sequence types**.
+2. **`list()` constructor**: Creates a shallow copy of **a list**.
+3. **`copy.copy()`**: Creates a shallow copy of **any object**.
+4. **`copy.deepcopy()`**: Creates a deep copy, **also copying nested objects**.
 
 **Shallow vs Deep Copy:**
-- Shallow copy: Creates a new object but references the same nested objects.
-- Deep copy: Creates a new object and recursively copies all nested objects.
+- **Shallow copy:** Creates a new object but **references the same nested objects**.
+- **Deep copy:** Creates a new object and **recursively copies all nested objects**.
 
 ## Collections in Python
 
@@ -161,17 +161,17 @@ print(roman_numerals)  # This will print: {'I': 1, 'V': 5, 'X': 11, 'L': 50}
 
 **Key features of dictionaries:**
 
-1. Fast lookup: Dictionaries use hash tables for O(1) average-case lookup time.
-2. Mutable: Keys and values can be added, modified, or removed.
-3. Flexible keys: Any immutable object can be used as a key (strings, numbers, tuples).
-4. Unordered: As of Python 3.7, dictionaries maintain insertion order, but this should not be relied upon for functionality.
+1. **Fast lookup:** Dictionaries use **hash tables** for **O(1)** average-case lookup time.
+2. **Mutable:** Keys and values can be **added**, **modified**, or **removed**.
+3. **Flexible keys:** Any **immutable object** can be used as a **key** (**strings, numbers, tuples**).
+4. **Unordered:** **Above** Python 3.7, dictionaries maintain insertion order, but this should not be relied upon for functionality.
 
 **Common dictionary methods:**
 
-- `dict.get(key, default)`: Returns the value for key if it exists, else default.
-- `dict.keys()`: Returns a view of all keys in the dictionary.
-- `dict.values()`: Returns a view of all values in the dictionary.
-- `dict.items()`: Returns a view of all key-value pairs as tuples.
+- **`dict.get(key, default)`**: Returns the value **for key** if it exists, else **defaul**t.
+- **`dict.keys()`**: Returns a view of **all keys** in the dictionary.
+- **`dict.values()`**: Returns a view of **all values** in the dictionary.
+- **`dict.items()`**: Returns a view of **all key-value pairs as tuples**.
 
 ### Lists vs Dictionaries
 
@@ -197,7 +197,7 @@ print(roman_numerals)  # This will print: {'I': 1, 'V': 5, 'X': 11, 'L': 50}
 3. When you need to count occurrences of items.
 4. When you want to quickly check if an item exists in the collection.
 
-## Managing State in Python
+## Managing State in Python (Necessary here?)
 
 ### Nonlocal Statements
 
@@ -227,9 +227,9 @@ print(counter())  # This will print: 3
 
 **When and why to use nonlocal:**
 
-1. Encapsulation: To create functions with private state.
-2. Avoiding global variables: To manage state without resorting to global variables.
-3. Creating stateful closures: To create functions that remember their state between calls.
+1. **Encapsulation:** To create functions with private state.
+2. **Avoiding global variables:** To manage state without resorting to global variables.
+3. **Creating stateful closures:** To create functions that remember their state between calls.
 
 **Limitations and considerations:**
 - `nonlocal` cannot be used to modify variables in the global scope; use `global` for that purpose.
@@ -238,7 +238,7 @@ print(counter())  # This will print: 3
 
 ## Memory Management
 
-### Garbage Collection
+### Garbage Collection (Necessary here?)
 
 **How Python manages memory automatically**
 
@@ -272,9 +272,9 @@ gc.collect()  # This will trigger the __del__ methods
 
 **Key aspects of Python's memory management:**
 
-1. Reference counting: Python keeps track of how many references point to an object.
-2. Generational garbage collection: Objects are divided into generations based on their age.
-3. Cycle detection: Python can detect and collect objects with circular references.
+1. **Reference counting:** Python keeps track of how many references point to an object.
+2. **Generational garbage collection:** Objects are divided into generations based on their age.
+3. **Cycle detection:** Python can detect and collect objects with circular references.
 
 **Benefits of automatic garbage collection:**
 - Prevents memory leaks
@@ -288,8 +288,8 @@ gc.collect()  # This will trigger the __del__ methods
 Circular references occur when two or more objects reference each other, creating a cycle that cannot be broken by reference counting alone.
 
 **How Python handles circular references:**
-1. Cycle detector: Periodically checks for and breaks reference cycles.
-2. Generational GC: Focuses on younger objects first, as they are more likely to become garbage.
+1. **Cycle detector:** Periodically checks for and breaks reference cycles.
+2. **Generational GC:** Focuses on younger objects first, as they are more likely to become garbage.
 
 **Best practices to avoid issues with circular references:**
 1. Use weak references when appropriate (weakref module).
